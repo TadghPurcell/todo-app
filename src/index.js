@@ -2,13 +2,17 @@ import './style.scss';
 import MakeToDoItem from './makeToDoItem';
 import printToDoItem from './printAllToDoItems';
 
-const allToDoProjects = [];
+const title = document.querySelector('#title');
+const desc = document.querySelector('#desc');
+const dueDate = document.querySelector('#due-date');
+const priority = document.querySelector('#priority');
+
+const allToDoProjects = [[]];
 const main = document.querySelector('main');
 
 const testItem = new MakeToDoItem(
   'Go to shop',
   'go to the shop and buy food',
-  'today',
   'Tomorrow',
   'low',
   0
@@ -21,10 +25,17 @@ document.querySelector('.new-project').addEventListener('click', function () {
   console.log(allToDoProjects);
 });
 
-btnNew.addEventListener('click', function () {
-  testItem.addToDoItem(allToDoProjects);
+btnNew.addEventListener('click', function (e) {
+  e.preventDefault();
+  const newItem = new MakeToDoItem(
+    `${title.value}`,
+    `${desc.value}`,
+    `${dueDate.value}`,
+    `${priority.value}`
+  );
+  main.innerHTML = '';
+  newItem.addToDoItem(allToDoProjects);
   allToDoProjects.flat().forEach(x => main.appendChild(printToDoItem(x)));
-  console.log(allToDoProjects);
 });
 
 console.log(testItem);

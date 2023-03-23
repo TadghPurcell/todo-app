@@ -1,11 +1,12 @@
 export default function MakeToDoItem(
   title,
   desc,
-  dateCreated,
   dueDate,
   priority,
-  index
+  index = 0
 ) {
+  const dateCreated = +new Date();
+
   function addToDoItem(e) {
     e[this.index]?.push(this);
   }

@@ -9,8 +9,30 @@
   <body>
     <div class="main">
       <h1>Hello</h1>
+      <form action="">
+        <div class="title">
+          <p><label for="title">Title</label></p>
+          <p><input type="text" name="title" id="title" /></p>
+        </div>
+        <div class="desc">
+          <p><label for="desc">Desc</label></p>
+          <p><input type="text" name="desc" id="desc" /></p>
+        </div>
+        <div class="due-date">
+          <p><label for="due-date">Due Date</label></p>
+          <p><input type="text" name="due-date" id="due-date" /></p>
+        </div>
+        <div class="priority">
+          <p><label for="priority">Priority</label></p>
+          <p><input type="text" name="priority" id="priority" /></p>
+        </div>
+        <div class="form-buttons">
+          <button class="btn btn-add new-todo">Add to do</button>
+          <button class="btn btn-reset">Reset</button>
+        </div>
+      </form>
       <button class="new-project">Add New Project</button>
-      <button class="new-todo">Add New Item</button>
+      <!-- <button class="new-todo">Add New Item</button> -->
       <main></main>
     </div>
     <script src="./main.js"></script>

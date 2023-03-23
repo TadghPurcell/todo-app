@@ -28,7 +28,7 @@ const userInterface = (() => {
       );
 
       dom.main.innerHTML = '';
-      newItem.addToDoItem(toDoController.allToDoProjects);
+      toDoController.addToDoItem(toDoController.allToDoProjects);
       toDoController.allToDoProjects
         .flat()
         .forEach(x => dom.main.appendChild(dom.printAllToDoItems(x)));

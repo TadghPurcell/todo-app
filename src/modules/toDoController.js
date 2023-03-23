@@ -12,8 +12,8 @@ const toDoController = (() => {
     }
   }
 
-  function createNewToDoItem() {
-    return new MakeToDoItem();
+  function createNewToDoItem(a, b, c, d, e) {
+    return new MakeToDoItem(a, b, c, d, e);
   }
 
   function createNewProject(e) {

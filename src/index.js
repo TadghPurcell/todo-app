@@ -1,8 +1,8 @@
-import './style.scss';
-import MakeToDoItem from './makeToDoItem';
-import printAllToDoItems from './printAllToDoItems';
-import makeProject from './makeProject';
-import printAllProjects from './printAllProjects';
+import './sass/main.scss';
+import MakeToDoItem from './modules/makeToDoItem';
+import printAllToDoItems from './modules/printAllToDoItems';
+import makeProject from './modules/makeProject';
+import printAllProjects from './modules/printAllProjects';
 
 const title = document.querySelector('#title');
 const desc = document.querySelector('#desc');

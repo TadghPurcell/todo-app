@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+:root {
+  --dark-text: rgb(65, 69, 81);
+  --light-text: rgb(130, 132, 144);
+  --hover-link: rgb(45, 109, 212);
+  --background-col: rgb(246 247 251);
+  --sidebar-col: rgb(26, 26, 33);
+  --box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.075);
+}
+
+body {
+  box-sizing: border-box;
+}
+
+.hidden {
+  display: none;
+}

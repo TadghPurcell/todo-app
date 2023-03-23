@@ -7,7 +7,45 @@
     <title>To Do</title>
   </head>
   <body>
-    <div class="new-project-form">
+    <header>
+      <h1>To Do</h1>
+    </header>
+
+    <aside class="sidebar">
+      <div class="sidebar__general">
+        <h2 class="sidebar__general--header">Home</h2>
+
+        <div class="sidebar__btn btn--all">
+          <button class="sidebar__btn btn--all">All</button>
+        </div>
+        <div class="sidebar__btn btn--today">
+          <button class="sidebar__btn btn--today">Today</button>
+        </div>
+        <div class="sidebar__btn btn--this-week">
+          <button class="sidebar__btn btn--this-week">This Week</button>
+        </div>
+        <div class="sidebar__btn btn--important">
+          <button class="sidebar__btn btn--important">Important</button>
+        </div>
+      </div>
+
+      <div class="sidebar__projects">
+        <h2 class="sidebar__projectsheader">Projects</h2>
+        <div class="project-test1">
+          <p class="project__title">
+            Put add new project button to open model here
+          </p>
+          <button class="edit-project">Edit Project</button>
+          <button class="delete-project">Delete Project</button>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="todo-test"><p class="title">Heelllo</p></div>
+    </main>
+
+    <div class="new-project-form hidden">
       <form action="">
         <div class="new-project-form__title">
           <p><label for="title">Title</label></p>
@@ -19,7 +57,7 @@
         </div>
       </form>
     </div>
-    <div class="new-todo-form">
+    <div class="new-todo-form hidden">
       <form action="">
         <div class="new-todo-form__title">
           <p><label for="title">Title</label></p>
@@ -43,8 +81,6 @@
         </div>
       </form>
     </div>
-    <aside></aside>
-    <main></main>
     <script src="./main.js"></script>
   </body>
 </html>

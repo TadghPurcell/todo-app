@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'Rubik';
+  src: url(../fonts/Rubik-VariableFont_wght.ttf);
+}
+
+$body-color: red;
+
+body {
+  background-color: yellow;
+  height: 100vh;
+  width: 100vw;
+  color: $body-color;
+}
+
+.main {
+  //   background: #000;
+  height: 100vh;
+  width: 100vw;
+}
+
+h1 {
+  font-family: 'Rubik', Arial, sans-serif;
+}
+
+.logo {
+  background: url(../img/check-outline.svg) no-repeat center;
+  height: 500px;
+  width: 500px;
+  background-size: contain;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

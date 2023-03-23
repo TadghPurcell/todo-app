@@ -1,14 +1,15 @@
 import './style.scss';
 import MakeToDoItem from './makeToDoItem';
-import printToDoItem from './printAllToDoItems';
+import printAllToDoItems from './printAllToDoItems';
 import makeProject from './makeProject';
+import printAllProjects from './printAllProjects';
 
 const title = document.querySelector('#title');
 const desc = document.querySelector('#desc');
 const dueDate = document.querySelector('#due-date');
 const priority = document.querySelector('#priority');
 
-const allToDoProjects = [[]];
+const allToDoProjects = [];
 const main = document.querySelector('main');
 const sidebar = document.querySelector('aside');
 
@@ -27,7 +28,10 @@ document
   .addEventListener('click', function (e) {
     e.preventDefault();
     makeProject(allToDoProjects, e);
-    // obj.push([e.target.form.title.value]);
+    sidebar.innerHTML = '';
+    allToDoProjects.forEach((el, i) =>
+      sidebar.appendChild(printAllProjects(el, i))
+    );
     console.log(allToDoProjects);
   });
 
@@ -37,11 +41,12 @@ btnNew.addEventListener('click', function (e) {
     `${title.value}`,
     `${desc.value}`,
     `${dueDate.value}`,
+    `${priority.value}`,
     `${priority.value}`
   );
   main.innerHTML = '';
   newItem.addToDoItem(allToDoProjects);
-  allToDoProjects.flat().forEach(x => main.appendChild(printToDoItem(x)));
+  allToDoProjects.flat().forEach(x => main.appendChild(printAllToDoItems(x)));
   console.log(allToDoProjects);
 });
 

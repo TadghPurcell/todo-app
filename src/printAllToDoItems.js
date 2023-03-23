@@ -5,23 +5,23 @@ export default function printToDoItem(item) {
 
   const title = document.createElement('h3');
   title.classList.add('title');
-  title.textContent = `${item.title}`;
+  title.textContent = `${item.title || ''}`;
 
   const desc = document.createElement('p');
   desc.classList.add('desc');
-  desc.textContent = `${item.desc}`;
+  desc.textContent = `${item.desc || ''}`;
 
   const dateCreated = document.createElement('p'); // maybe not
   dateCreated.classList.add('date-created');
-  dateCreated.textContent = `${item.dateCreated}`;
+  dateCreated.textContent = `${item.dateCreated || ''}`;
 
   const dueDate = document.createElement('p');
   dueDate.classList.add('due-date');
-  dueDate.textContent = `${item.dueDate}`;
+  dueDate.textContent = `${item.dueDate || ''}`;
 
   const priority = document.createElement('p');
   priority.classList.add('priority');
-  priority.textContent = `${item.priority}`;
+  priority.textContent = `${item.priority || ''}`;
 
   toDoItem.appendChild(title);
   toDoItem.appendChild(desc);

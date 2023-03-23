@@ -1,6 +1,7 @@
 import './style.scss';
 import MakeToDoItem from './makeToDoItem';
 import printToDoItem from './printAllToDoItems';
+import makeProject from './makeProject';
 
 const title = document.querySelector('#title');
 const desc = document.querySelector('#desc');
@@ -9,6 +10,7 @@ const priority = document.querySelector('#priority');
 
 const allToDoProjects = [[]];
 const main = document.querySelector('main');
+const sidebar = document.querySelector('aside');
 
 const testItem = new MakeToDoItem(
   'Go to shop',
@@ -20,10 +22,14 @@ const testItem = new MakeToDoItem(
 
 const btnNew = document.querySelector('.new-todo');
 
-document.querySelector('.new-project').addEventListener('click', function () {
-  allToDoProjects.push([]);
-  console.log(allToDoProjects);
-});
+document
+  .querySelector('.btn-add-project')
+  .addEventListener('click', function (e) {
+    e.preventDefault();
+    makeProject(allToDoProjects, e);
+    // obj.push([e.target.form.title.value]);
+    console.log(allToDoProjects);
+  });
 
 btnNew.addEventListener('click', function (e) {
   e.preventDefault();
@@ -36,6 +42,7 @@ btnNew.addEventListener('click', function (e) {
   main.innerHTML = '';
   newItem.addToDoItem(allToDoProjects);
   allToDoProjects.flat().forEach(x => main.appendChild(printToDoItem(x)));
+  console.log(allToDoProjects);
 });
 
 console.log(testItem);

@@ -1,8 +1,5 @@
 import dom from './dom';
-import MakeToDoItem from './toDoController';
-import toDoController from './toDoController';
-import { addToDoItem, addProject } from './storage';
-import { cloneDeep } from 'lodash';
+import { createNewToDoItem, addToDoItem, addProject } from './toDoController';
 
 const userInterface = (() => {
   //form elements
@@ -17,11 +14,24 @@ const userInterface = (() => {
   const btnAll = document.querySelector('.btn--all');
   const btnCreateProject = document.querySelector('.btn-create-project');
 
+  function addSidebarEventListeners(e) {
+    e.forEach(btn => {
+      btn.addEventListener('click', function () {
+        e.forEach(btn => btn.classList.remove('active'));
+        btn.classList.add('active');
+        dom.main.innerHTML = '';
+        console.log(btn.textContent);
+        dom.printProject(btn.textContent);
+      });
+    });
+  }
+
   function addEventListeners() {
     btnAddProject.addEventListener('click', dom.toggleModal);
     btnAddToDoForm.addEventListener('click', function (e) {
       e.preventDefault();
-      const newItem = toDoController.createNewToDoItem(
+      dom.main.innerHTML = '';
+      const newItem = createNewToDoItem(
         `${e.target.form.title.value}`,
         `${desc.value}`,
         `${dueDate.value}`,
@@ -32,19 +42,13 @@ const userInterface = (() => {
       const activeBtn = [...document.querySelectorAll('.project__btn')].find(
         x => x.classList.contains('active')
       );
-      console.log(activeBtn);
-      console.log(localStorage);
+      console.log(activeBtn.textContent);
 
       addToDoItem(activeBtn.textContent, newItem);
+      dom.printProject(activeBtn.textContent);
 
-      dom.main.innerHTML = '';
-      toDoController.addToDoItem(toDoController.allToDoProjects);
       dom.clearFormInputs(e);
       dom.newToDoForm.classList.add('hidden');
-      // toDoController.allToDoProjects
-      //   .flat()
-      //   .forEach(x => dom.main.appendChild(dom.printAllToDoItems(x)));
-      console.log(toDoController.allToDoProjects);
     });
 
     btnAll.addEventListener('click', dom.printAll);
@@ -56,26 +60,31 @@ const userInterface = (() => {
       //   e.target.classList.add('active');
       // }
       e.preventDefault();
+      console.log(e);
       addProject(e.target.form.title.value);
-      toDoController.createNewProject(e);
       // dom.clearFormInputs(e);
       dom.sidebarProjectSection.innerHTML = '';
       dom.printProjectButtonsSidebar();
       e.target.form.title.value = '';
       dom.newProjectForm.classList.add('hidden');
+      const allProjectBtns = [...document.querySelectorAll('.project__btn')];
+      addSidebarEventListeners(allProjectBtns);
     });
   }
+
   function init() {
     dom.printProjectButtonsSidebar();
+    dom.printAll();
     const allProjectBtns = [...document.querySelectorAll('.project__btn')];
-    allProjectBtns.forEach(btn => {
-      btn.addEventListener('click', function (e) {
-        allProjectBtns.forEach(btn => btn.classList.remove('active'));
-        btn.classList.add('active');
-        dom.main.innerHTML = '';
-        dom.printProject(e);
-      });
-    });
+    // console.log(allProjectBtns);
+    addSidebarEventListeners(allProjectBtns);
+    // allProjectBtns.forEach(btn => {
+    //   btn.addEventListener('click', function (e) {
+    //     allProjectBtns.forEach(btn => btn.classList.remove('active'));
+    //     btn.classList.add('active');
+    //     dom.main.innerHTML = '';
+    //   });
+    // });
   }
 
   return { addEventListeners, init };

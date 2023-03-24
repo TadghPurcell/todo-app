@@ -8,3 +8,7 @@ button {
 .project__btn.active {
   color: var(--hover-link);
 }
+
+button:focus {
+  color: red;
+}

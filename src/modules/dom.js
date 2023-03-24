@@ -1,5 +1,3 @@
-import { formatISO } from 'date-fns';
-
 const dom = (() => {
   const main = document.querySelector('main');
   const sidebar = document.querySelector('aside');
@@ -71,11 +69,12 @@ const dom = (() => {
   }
 
   function printProject(e) {
-    const project = JSON.parse(localStorage.getItem(e.target.textContent));
-    console.log(e.target.textContent);
+    const project = JSON.parse(localStorage.getItem(e));
+    // console.log(e.target.textContent);
     console.log(project);
 
     for (const [key, value] of Object.entries(project)) {
+      console.log(value);
       main.appendChild(dom.printToDoItem(value));
     }
   }

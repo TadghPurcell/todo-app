@@ -30,4 +30,16 @@
 
 .project {
   text-transform: capitalize;
+  &__btn {
+    color: var(--light-text);
+    background-color: inherit;
+  }
+}
+
+.add-project {
+  color: var(--light-text);
+  background-color: inherit;
+  &:hover {
+    color: var(--hover-link);
+  }
 }

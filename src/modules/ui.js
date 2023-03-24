@@ -32,9 +32,11 @@ const userInterface = (() => {
 
       dom.main.innerHTML = '';
       toDoController.addToDoItem(toDoController.allToDoProjects);
-      toDoController.allToDoProjects
-        .flat()
-        .forEach(x => dom.main.appendChild(dom.printAllToDoItems(x)));
+      dom.clearFormInputs(e);
+      dom.newToDoForm.classList.add('hidden');
+      // toDoController.allToDoProjects
+      //   .flat()
+      //   .forEach(x => dom.main.appendChild(dom.printAllToDoItems(x)));
       console.log(toDoController.allToDoProjects);
     });
 
@@ -46,8 +48,11 @@ const userInterface = (() => {
       e.preventDefault();
       addProject(e.target.form.title.value);
       toDoController.createNewProject(e);
+      // dom.clearFormInputs(e);
       dom.sidebarProjectSection.innerHTML = '';
       dom.printProjectButtonsSidebar();
+      e.target.form.title.value = '';
+      dom.newProjectForm.classList.add('hidden');
       // toDoController.allToDoProjects.forEach((el, i) =>
       //   dom.sidebarProjectSection.appendChild(dom.printAllProjects(el, i))
       // );

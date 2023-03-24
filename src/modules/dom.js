@@ -8,16 +8,23 @@ const dom = (() => {
   const newProjectForm = document.querySelector('.new-project-form');
   const newToDoForm = document.querySelector('.new-todo-form');
 
+  function clearFormInputs(e) {
+    e.target.form.title.value = '';
+    e.target.form.desc.value = '';
+    e.target.form['due-date'].value = '';
+    e.target.form.priority.value = '';
+  }
+
   function printAllProjects(el, i) {
     const project = document.createElement('div');
     project.classList.add('project');
     project.setAttribute('data-index', i);
 
-    const projectTitle = document.createElement('h2');
-    projectTitle.classList.add('project__title');
-    projectTitle.textContent = el;
+    const projectBtn = document.createElement('button');
+    projectBtn.classList.add('project__btn');
+    projectBtn.textContent = el;
 
-    project.appendChild(projectTitle);
+    project.appendChild(projectBtn);
 
     return project;
   }
@@ -60,10 +67,14 @@ const dom = (() => {
   }
 
   function toggleModal(e) {
-    if (e.target.classList.value === 'add-project')
+    if (e.target.classList.value === 'add-project') {
       newProjectForm.classList.toggle('hidden');
-    if (e.target.classList.value === 'sidebar__btn btn-add-todo')
+      newToDoForm.classList.add('hidden');
+    }
+    if (e.target.classList.value === 'sidebar__btn btn-add-todo') {
       newToDoForm.classList.toggle('hidden');
+      newProjectForm.classList.add('hidden');
+    }
   }
 
   function printAll() {
@@ -97,12 +108,15 @@ const dom = (() => {
   }
   return {
     main,
+    clearFormInputs,
     toggleModal,
     sidebarProjectSection,
     printAll,
     printAllProjects,
     printToDoItem,
     printProjectButtonsSidebar,
+    newProjectForm,
+    newToDoForm,
   };
 })();
 

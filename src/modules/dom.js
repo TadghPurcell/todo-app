@@ -9,10 +9,13 @@ const dom = (() => {
   const newToDoForm = document.querySelector('.new-todo-form');
 
   function clearFormInputs(e) {
-    e.target.form.title.value = '';
-    e.target.form.desc.value = '';
-    e.target.form['due-date'].value = '';
-    e.target.form.priority.value = '';
+    e.preventDefault();
+    if (e.target.form.length > 3) {
+      e.target.form.title.value = '';
+      e.target.form.desc.value = '';
+      e.target.form['due-date'].value = '';
+      e.target.form.priority.value = '';
+    } else e.target.form.title.value = '';
   }
 
   function printAllProjects(el, i) {

@@ -11,6 +11,7 @@ const userInterface = (() => {
   const btnAddToDoSidebar = document.querySelector('.btn-add-todo');
   const btnAddToDoForm = document.querySelector('.new-todo');
   const btnResetProject = document.querySelector('.btn-reset-project');
+  const btnResetToDoForm = document.querySelector('.btn-reset-form');
   const btnAll = document.querySelector('.btn--all');
   const btnCreateProject = document.querySelector('.btn-create-project');
 
@@ -28,10 +29,9 @@ const userInterface = (() => {
 
   function addEventListeners() {
     btnAddProject.addEventListener('click', dom.toggleModal);
-    btnResetProject.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.target.form.title.value = '';
-    });
+    btnResetProject.addEventListener('click', dom.clearFormInputs);
+    btnResetToDoForm.addEventListener('click', dom.clearFormInputs);
+
     btnAddToDoForm.addEventListener('click', function (e) {
       e.preventDefault();
       dom.main.innerHTML = '';
@@ -66,10 +66,9 @@ const userInterface = (() => {
       e.preventDefault();
       console.log(e);
       addProject(e.target.form.title.value);
-      // dom.clearFormInputs(e);
+      dom.clearFormInputs(e);
       dom.sidebarProjectSection.innerHTML = '';
       dom.printProjectButtonsSidebar();
-      e.target.form.title.value = '';
       dom.newProjectForm.classList.add('hidden');
       const allProjectBtns = [...document.querySelectorAll('.project__btn')];
       addSidebarEventListeners(allProjectBtns);

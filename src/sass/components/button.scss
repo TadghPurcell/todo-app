@@ -4,3 +4,7 @@ button {
   cursor: pointer;
   //   background: white;
 }
+
+.project__btn.active {
+  color: var(--hover-link);
+}

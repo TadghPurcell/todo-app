@@ -1,3 +1,5 @@
+import { formatISO } from 'date-fns';
+
 const dom = (() => {
   const main = document.querySelector('main');
   const sidebar = document.querySelector('aside');
@@ -34,7 +36,7 @@ const dom = (() => {
     // const item = JSON.parse(str);
     console.log(item);
     const toDoItem = document.createElement('div');
-    toDoItem.classList.add(`item--${item.index}`);
+    toDoItem.classList.add(`main__item`);
     toDoItem.setAttribute('data-index', `${item.index}`);
 
     const title = document.createElement('h3');
@@ -47,8 +49,10 @@ const dom = (() => {
 
     const dateCreated = document.createElement('p'); // maybe not
     dateCreated.classList.add('date-created');
-    dateCreated.textContent = `${item.dateCreated || ''}`;
-
+    dateCreated.textContent = item.dateCreated.slice(0, 10);
+    // dateCreated.textContent = Intl.DateTimeFormat('en-US').format(
+    //   item.dateCreated
+    // );
     const dueDate = document.createElement('p');
     dueDate.classList.add('due-date');
     dueDate.textContent = `${item.dueDate || ''}`;
@@ -64,6 +68,16 @@ const dom = (() => {
     toDoItem.appendChild(priority);
 
     return toDoItem;
+  }
+
+  function printProject(e) {
+    const project = JSON.parse(localStorage.getItem(e.target.textContent));
+    console.log(e.target.textContent);
+    console.log(project);
+
+    for (const [key, value] of Object.entries(project)) {
+      main.appendChild(dom.printToDoItem(value));
+    }
   }
 
   function toggleModal(e) {
@@ -107,6 +121,7 @@ const dom = (() => {
     printProjectButtonsSidebar,
     newProjectForm,
     newToDoForm,
+    printProject,
   };
 })();
 

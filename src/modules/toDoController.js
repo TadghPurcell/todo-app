@@ -1,14 +1,22 @@
+import { compareAsc, format } from 'date-fns';
+
 const toDoController = (() => {
   const allToDoProjects = [];
 
   class MakeToDoItem {
-    constructor(title, desc, dueDate = 'None', priority = 0, index = 0) {
+    constructor(
+      title = 'test',
+      desc = 'test',
+      dueDate = 'None',
+      priority = 0,
+      index = 0
+    ) {
       this.title = title;
       this.desc = desc;
       this.dueDate = dueDate;
       this.priority = priority;
       this.index = index;
-      this.dateCreated = +new Date();
+      this.dateCreated = new Date().toISOString();
     }
   }
 

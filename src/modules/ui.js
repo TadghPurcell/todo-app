@@ -6,7 +6,6 @@ import { cloneDeep } from 'lodash';
 
 const userInterface = (() => {
   //form elements
-  const title = document.querySelector('#title');
   const desc = document.querySelector('#desc');
   const dueDate = document.querySelector('#due-date');
   const priority = document.querySelector('#priority');
@@ -23,12 +22,20 @@ const userInterface = (() => {
     btnAddToDoForm.addEventListener('click', function (e) {
       e.preventDefault();
       const newItem = toDoController.createNewToDoItem(
-        `${title.value}`,
+        `${e.target.form.title.value}`,
         `${desc.value}`,
         `${dueDate.value}`,
         `${priority.value}`,
         `${priority.value}`
       );
+
+      const activeBtn = [...document.querySelectorAll('.project__btn')].find(
+        x => x.classList.contains('active')
+      );
+      console.log(activeBtn);
+      console.log(localStorage);
+
+      addToDoItem(activeBtn.textContent, newItem);
 
       dom.main.innerHTML = '';
       toDoController.addToDoItem(toDoController.allToDoProjects);
@@ -56,17 +63,22 @@ const userInterface = (() => {
       dom.printProjectButtonsSidebar();
       e.target.form.title.value = '';
       dom.newProjectForm.classList.add('hidden');
-      const allProjectBtns = [...document.querySelectorAll('.project__btn')];
-
-      allProjectBtns.forEach(btn => {
-        btn.addEventListener('click', function (e) {
-          allProjectBtns.forEach(btn => btn.classList.remove('active'));
-          btn.classList.add('active');
-        });
+    });
+  }
+  function init() {
+    dom.printProjectButtonsSidebar();
+    const allProjectBtns = [...document.querySelectorAll('.project__btn')];
+    allProjectBtns.forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        allProjectBtns.forEach(btn => btn.classList.remove('active'));
+        btn.classList.add('active');
+        dom.main.innerHTML = '';
+        dom.printProject(e);
       });
     });
   }
-  return { addEventListeners };
+
+  return { addEventListeners, init };
 })();
 
 export default userInterface;

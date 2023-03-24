@@ -28,6 +28,10 @@ const userInterface = (() => {
 
   function addEventListeners() {
     btnAddProject.addEventListener('click', dom.toggleModal);
+    btnResetProject.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.target.form.title.value = '';
+    });
     btnAddToDoForm.addEventListener('click', function (e) {
       e.preventDefault();
       dom.main.innerHTML = '';

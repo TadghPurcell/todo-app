@@ -45,6 +45,9 @@ const userInterface = (() => {
     btnAddToDoSidebar.addEventListener('click', dom.toggleModal);
 
     btnCreateProject.addEventListener('click', function (e) {
+      // function setActiveProject(e) {
+      //   e.target.classList.add('active');
+      // }
       e.preventDefault();
       addProject(e.target.form.title.value);
       toDoController.createNewProject(e);
@@ -53,10 +56,14 @@ const userInterface = (() => {
       dom.printProjectButtonsSidebar();
       e.target.form.title.value = '';
       dom.newProjectForm.classList.add('hidden');
-      // toDoController.allToDoProjects.forEach((el, i) =>
-      //   dom.sidebarProjectSection.appendChild(dom.printAllProjects(el, i))
-      // );
-      // console.log(toDoController.allToDoProjects);
+      const allProjectBtns = [...document.querySelectorAll('.project__btn')];
+
+      allProjectBtns.forEach(btn => {
+        btn.addEventListener('click', function (e) {
+          allProjectBtns.forEach(btn => btn.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
     });
   }
   return { addEventListeners };

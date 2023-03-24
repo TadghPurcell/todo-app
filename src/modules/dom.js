@@ -18,10 +18,10 @@ const dom = (() => {
   function printAllProjects(el, i) {
     const project = document.createElement('div');
     project.classList.add('project');
-    project.setAttribute('data-index', i);
 
     const projectBtn = document.createElement('button');
     projectBtn.classList.add('project__btn');
+    projectBtn.setAttribute('index', i);
     projectBtn.textContent = el;
 
     project.appendChild(projectBtn);
@@ -80,19 +80,9 @@ const dom = (() => {
   function printAll() {
     main.innerHTML = '';
     for (const value of Object.values(localStorage)) {
-      // const { hello, goodbye } = JSON.parse(value);
-      // console.log(hello);
-      // console.log(goodbye);
-      // console.log(array);
-      // console.log(valueNested);
-      // dom.main.appendChild(dom.printToDoItem(value));
-      // console.log(key);
-      console.log(value);
       for (const item of Object.values(JSON.parse(value))) {
         main.appendChild(dom.printToDoItem(item));
       }
-      // console.log(JSON.parse(value));
-      // console.log(JSON.parse(value));
     }
   }
   function printProjectButtonsSidebar() {
@@ -101,9 +91,9 @@ const dom = (() => {
     for (const key of Object.keys(localStorage)
       .map(x => x.toLowerCase())
       .sort()) {
-      index++;
       console.log(printAllProjects(key, index));
       sidebarProjectSection.appendChild(printAllProjects(key, index));
+      index++;
     }
   }
   return {

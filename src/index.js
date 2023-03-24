@@ -1,8 +1,11 @@
 import './sass/main.scss';
-import { addToDoItem } from './modules/localStorage';
+import { addToDoItem } from './modules/storage';
 import userInterface from './modules/ui';
 
 document.addEventListener('DOMContentLoaded', userInterface.addEventListeners);
+document.addEventListener('click', function (e) {
+  console.log(e.target.classList);
+});
 
 // localStorage.setItem('name', 'tadgh');
 // localStorage.setItem('job', 'webdev');

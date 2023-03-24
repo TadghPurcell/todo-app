@@ -2,7 +2,7 @@ const toDoController = (() => {
   const allToDoProjects = [];
 
   class MakeToDoItem {
-    constructor(title, desc, dueDate = 'None', priority, index = 0) {
+    constructor(title, desc, dueDate = 'None', priority = 0, index = 0) {
       this.title = title;
       this.desc = desc;
       this.dueDate = dueDate;

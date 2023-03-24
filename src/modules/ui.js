@@ -1,6 +1,8 @@
 import dom from './dom';
 import MakeToDoItem from './toDoController';
 import toDoController from './toDoController';
+import { addToDoItem, addProject } from './storage';
+import { cloneDeep } from 'lodash';
 
 const userInterface = (() => {
   //form elements
@@ -9,15 +11,16 @@ const userInterface = (() => {
   const dueDate = document.querySelector('#due-date');
   const priority = document.querySelector('#priority');
   //buttons
-  const BtnAddProject = document.querySelector('.add-project');
-  const btnAddToDo = document.querySelector('.new-todo');
+  const btnAddProject = document.querySelector('.add-project');
+  const btnAddToDoSidebar = document.querySelector('.btn-add-todo');
+  const btnAddToDoForm = document.querySelector('.new-todo');
   const btnResetProject = document.querySelector('.btn-reset-project');
   const btnAll = document.querySelector('.btn--all');
   const btnCreateProject = document.querySelector('.btn-create-project');
 
   function addEventListeners() {
-    BtnAddProject.addEventListener('click', dom.toggleModal);
-    btnAddToDo.addEventListener('click', function (e) {
+    btnAddProject.addEventListener('click', dom.toggleModal);
+    btnAddToDoForm.addEventListener('click', function (e) {
       e.preventDefault();
       const newItem = toDoController.createNewToDoItem(
         `${title.value}`,
@@ -35,16 +38,20 @@ const userInterface = (() => {
       console.log(toDoController.allToDoProjects);
     });
 
-    btnAll.addEventListener('click', dom.toggleModal);
+    btnAll.addEventListener('click', dom.printAll);
+
+    btnAddToDoSidebar.addEventListener('click', dom.toggleModal);
 
     btnCreateProject.addEventListener('click', function (e) {
       e.preventDefault();
+      addProject(e.target.form.title.value);
       toDoController.createNewProject(e);
       dom.sidebarProjectSection.innerHTML = '';
-      toDoController.allToDoProjects.forEach((el, i) =>
-        dom.sidebarProjectSection.appendChild(dom.printAllProjects(el, i))
-      );
-      console.log(toDoController.allToDoProjects);
+      dom.printProjectButtonsSidebar();
+      // toDoController.allToDoProjects.forEach((el, i) =>
+      //   dom.sidebarProjectSection.appendChild(dom.printAllProjects(el, i))
+      // );
+      // console.log(toDoController.allToDoProjects);
     });
   }
   return { addEventListeners };

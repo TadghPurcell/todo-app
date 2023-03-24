@@ -15,7 +15,7 @@ const dom = (() => {
 
     const projectTitle = document.createElement('h2');
     projectTitle.classList.add('project__title');
-    projectTitle.textContent = `${el[0]}`;
+    projectTitle.textContent = el;
 
     project.appendChild(projectTitle);
 
@@ -23,6 +23,9 @@ const dom = (() => {
   }
 
   function printToDoItem(item) {
+    // console.log(str);
+    // const item = JSON.parse(str);
+    console.log(item);
     const toDoItem = document.createElement('div');
     toDoItem.classList.add(`item--${item.index}`);
     toDoItem.setAttribute('data-index', `${item.index}`);
@@ -59,15 +62,47 @@ const dom = (() => {
   function toggleModal(e) {
     if (e.target.classList.value === 'add-project')
       newProjectForm.classList.toggle('hidden');
-    if (e.target.classList.value === 'sidebar__btn btn--all')
+    if (e.target.classList.value === 'sidebar__btn btn-add-todo')
       newToDoForm.classList.toggle('hidden');
+  }
+
+  function printAll() {
+    main.innerHTML = '';
+    for (const value of Object.values(localStorage)) {
+      // const { hello, goodbye } = JSON.parse(value);
+      // console.log(hello);
+      // console.log(goodbye);
+      // console.log(array);
+      // console.log(valueNested);
+      // dom.main.appendChild(dom.printToDoItem(value));
+      // console.log(key);
+      console.log(value);
+      for (const item of Object.values(JSON.parse(value))) {
+        main.appendChild(dom.printToDoItem(item));
+      }
+      // console.log(JSON.parse(value));
+      // console.log(JSON.parse(value));
+    }
+  }
+  function printProjectButtonsSidebar() {
+    let index = 0;
+
+    for (const key of Object.keys(localStorage)
+      .map(x => x.toLowerCase())
+      .sort()) {
+      index++;
+      console.log(printAllProjects(key, index));
+      sidebarProjectSection.appendChild(printAllProjects(key, index));
+    }
   }
   return {
     main,
     toggleModal,
     sidebarProjectSection,
+    printAll,
     printAllProjects,
     printToDoItem,
+    printProjectButtonsSidebar,
   };
 })();
 

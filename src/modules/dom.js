@@ -45,6 +45,11 @@ const dom = (() => {
     const btnComplete = document.createElement('button');
     btnComplete.classList.add('btn-complete');
     btnComplete.setAttribute('complete', `${item.complete ? 'true' : 'false'}`);
+    btnComplete.textContent = `${
+      item.complete
+        ? (btnComplete.textContent = 'complete')
+        : (btnComplete.textContent = 'not complete')
+    }`;
 
     const btnDelete = document.createElement('button');
     btnDelete.classList.add('btn-delete');

@@ -14,18 +14,13 @@ button:focus {
 }
 
 svg {
+  height: 20px;
   width: 20px;
 }
 
 .btn-complete {
-  border: 1px solid #000;
-  width: 1rem;
-  height: 1rem;
-}
-
-button[complete='false'] {
-  border: 1px solid black;
-}
-button[complete='true'] {
-  border: 1px solid red;
+  height: 10px;
+  width: 100px;
+  background-color: inherit;
+  border: none;
 }

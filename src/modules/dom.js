@@ -1,4 +1,4 @@
-import { isToday, parseISO } from 'date-fns';
+import { isToday, isThisWeek, parseISO } from 'date-fns';
 
 const dom = (() => {
   const main = document.querySelector('main');
@@ -102,7 +102,9 @@ const dom = (() => {
   function printThisWeek() {
     for (const project of Object.values(localStorage)) {
       for (const item of Object.values(JSON.parse(project))) {
-        main.appendChild(dom.printToDoItem(item));
+        console.log(isThisWeek(parseISO(item.dueDate)));
+        if (isThisWeek(parseISO(item.dueDate)))
+          main.appendChild(dom.printToDoItem(item));
       }
     }
   }
@@ -130,8 +132,6 @@ const dom = (() => {
 
   function printSidebarLink(e) {
     main.innerHTML = '';
-    console.log(localStorage.hasOwnProperty(e));
-    console.log(e);
     if (e === 'all') printAll();
     if (e === 'today') printToday();
     if (e === 'this week') printThisWeek();

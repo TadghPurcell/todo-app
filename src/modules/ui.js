@@ -12,7 +12,10 @@ const userInterface = (() => {
   const btnAddToDoForm = document.querySelector('.new-todo');
   const btnResetProject = document.querySelector('.btn-reset-project');
   const btnResetToDoForm = document.querySelector('.btn-reset-form');
-  const btnAll = document.querySelector('.btn--all');
+  // const btnAll = document.querySelector('.btn--all');
+  // const btnToday = document.querySelector('.btn--today');
+  // const btnThisWeek = document.querySelector('.btn--this-week');
+  // const btnImportant = document.querySelector('.btn--important');
   const btnCreateProject = document.querySelector('.btn-create-project');
 
   function addSidebarEventListeners(e) {
@@ -73,8 +76,8 @@ const userInterface = (() => {
 
   function init() {
     dom.printProjectButtonsSidebar();
-    dom.printAll();
     const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
+    dom.printAll();
     // console.log(allProjectBtns);
     addSidebarEventListeners(allSidebarBtns);
   }

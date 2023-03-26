@@ -81,13 +81,20 @@ const dom = (() => {
   }
 
   function printAll() {
-    main.innerHTML = '';
-    for (const value of Object.values(localStorage)) {
-      for (const item of Object.values(JSON.parse(value))) {
+    for (const project of Object.values(localStorage)) {
+      for (const item of Object.values(JSON.parse(project))) {
         main.appendChild(dom.printToDoItem(item));
       }
     }
   }
+  function printImportant() {
+    for (const project of Object.values(localStorage)) {
+      for (const item of Object.values(JSON.parse(project))) {
+        if (item.priority === 'high') main.appendChild(dom.printToDoItem(item));
+      }
+    }
+  }
+
   function printProjectButtonsSidebar() {
     let index = 0;
 
@@ -105,8 +112,10 @@ const dom = (() => {
   function printSidebarLink(e) {
     main.innerHTML = '';
     console.log(localStorage.hasOwnProperty(e));
+    console.log(e);
     if (e === 'all') printAll();
     if (localStorage.hasOwnProperty(e)) printProject(e);
+    if (e === 'important') printImportant();
   }
 
   return {

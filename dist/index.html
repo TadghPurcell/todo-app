@@ -19,21 +19,13 @@
         <button class="sidebar__btn btn--today">today</button>
         <button class="sidebar__btn btn--this-week">this week</button>
         <button class="sidebar__btn btn--important">important</button>
-        <button class="sidebar__btn btn-add-todo">add to do</button>
+        <button class="btn-add-todo">add to do</button>
       </div>
 
       <div class="sidebar__projects">
         <h2 class="sidebar__projects--header">Projects</h2>
         <button class="add-project">Add Project</button>
-        <div class="sidebar__projects--container">
-          <!-- <div class="project-test1">
-            <p class="project__title">
-              Put add new project button to open model here
-            </p>
-            <button class="edit-project">Edit Project</button>
-            <button class="delete-project">Delete Project</button>
-          </div> -->
-        </div>
+        <div class="sidebar__projects--container"></div>
       </div>
     </aside>
 
@@ -42,8 +34,8 @@
     <div class="new-project-form hidden">
       <form action="">
         <div class="new-project-form__title">
-          <p><label for="title">Title</label></p>
-          <p><input type="text" name="title" id="title" required /></p>
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" required />
         </div>
         <div class="new-project-form__buttons">
           <button class="btn btn-create-project">Create Project</button>
@@ -54,20 +46,24 @@
     <div class="new-todo-form hidden">
       <form action="">
         <div class="new-todo-form__title">
-          <p><label for="title">Title</label></p>
-          <p><input type="text" name="title" id="title" required /></p>
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" required />
         </div>
         <div class="desc">
-          <p><label for="desc">Desc</label></p>
-          <p><input type="text" name="desc" id="desc" required /></p>
+          <label for="desc">Desc</label>
+          <input type="text" name="desc" id="desc" required />
         </div>
         <div class="due-date">
-          <p><label for="due-date">Due Date</label></p>
-          <p><input type="date" name="due-date" id="due-date" required /></p>
+          <label for="due-date">Due Date</label>
+          <input type="date" name="due-date" id="due-date" required />
         </div>
         <div class="priority">
-          <p><label for="priority">Priority</label></p>
-          <p><input type="text" name="priority" id="priority" required /></p>
+          <label for="priority">Priority</label>
+          <select name="priority" id="priority">
+            <option value="low">low</option>
+            <option value="medium">medium</option>
+            <option value="high">high</option>
+          </select>
         </div>
         <div class="new-todo-form__buttons">
           <button class="btn btn-add-form new-todo">Add to do</button>

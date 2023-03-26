@@ -21,8 +21,6 @@ const userInterface = (() => {
         e.forEach(btn => btn.classList.remove('active'));
         btn.classList.add('active');
         dom.main.innerHTML = '';
-        // console.log(btn.textContent);
-        // dom.printProject(btn.textContent);
         dom.printSidebarLink(btn.textContent);
       });
     });
@@ -40,11 +38,10 @@ const userInterface = (() => {
         `${e.target.form.title.value}`,
         `${desc.value}`,
         `${dueDate.value}`,
-        `${priority.value}`,
         `${priority.value}`
       );
 
-      const activeBtn = [...document.querySelectorAll('.project__btn')].find(
+      const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(
         x => x.classList.contains('active')
       );
       console.log(activeBtn.textContent);

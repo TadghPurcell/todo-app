@@ -74,7 +74,7 @@ const dom = (() => {
       newProjectForm.classList.toggle('hidden');
       newToDoForm.classList.add('hidden');
     }
-    if (e.target.classList.value === 'sidebar__btn btn-add-todo') {
+    if (e.target.classList.value === 'btn-add-todo') {
       newToDoForm.classList.toggle('hidden');
       newProjectForm.classList.add('hidden');
     }

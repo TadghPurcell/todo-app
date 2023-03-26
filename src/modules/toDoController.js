@@ -44,37 +44,35 @@ function getToDoItems() {
 
 function editCompleteStatus(e) {
   const projectDeserialized = JSON.parse(
-    localStorage.getItem(e.target.parentNode.lastChild.textContent)
+    localStorage.getItem(e.currentTarget.parentNode.lastChild.textContent)
   );
   for (const item of Object.values(projectDeserialized)) {
-    if (item.title === e.target.nextSibling.textContent) {
+    if (item.title === e.currentTarget.nextSibling.textContent) {
       item.complete = !item.complete;
       item.complete
-        ? (e.target.textContent = 'complete')
-        : (e.target.textContent = 'not complete');
+        ? (e.target.attributes.complete.value = 'false')
+        : (e.target.attributes.complete.value = 'true');
       localStorage.setItem(
-        e.target.parentNode.lastChild.textContent,
+        e.currentTarget.parentNode.lastChild.textContent,
         JSON.stringify(projectDeserialized)
       );
     }
   }
-  console.log(localStorage[e.target.parentNode.lastChild.textContent]);
+  console.log(localStorage[e.currentTarget.parentNode.lastChild.textContent]);
 
   return getToDoItems();
 }
 
 function deleteToDoItem(e) {
-  console.log(e.target.parentNode.parentNode.lastChild.textContent);
+  console.log(e.currentTarget.parentNode.lastChild.textContent);
   const projectDeserialized = JSON.parse(
-    localStorage.getItem(e.target.parentNode.parentNode.lastChild.textContent)
+    localStorage.getItem(e.currentTarget.parentNode.lastChild.textContent)
   );
   for (const item of Object.values(projectDeserialized)) {
-    if (
-      item.title === e.target.parentNode.parentNode.childNodes[1].textContent
-    ) {
+    if (item.title === e.currentTarget.parentNode.childNodes[1].textContent) {
       delete projectDeserialized[item.title];
       localStorage.setItem(
-        e.target.parentNode.parentNode.lastChild.textContent,
+        e.currentTarget.parentNode.lastChild.textContent,
         JSON.stringify(projectDeserialized)
       );
     }

@@ -99,7 +99,8 @@ const userInterface = (() => {
 
     allDeleteBtns.forEach(btn =>
       btn.addEventListener('click', function (e) {
-        console.log(e.target.parentNode.parentNode.lastChild.textContent);
+        console.log(e.currentTarget.parentNode.lastChild.textContent);
+        console.log(e.currentTarget);
         deleteToDoItem(e);
         console.log(activeBtn.textContent);
         dom.printSidebarLink(activeBtn.textContent);

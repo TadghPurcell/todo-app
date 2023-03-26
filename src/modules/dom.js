@@ -18,24 +18,10 @@ const dom = (() => {
     } else e.target.form.title.value = '';
   }
 
-  function printAllProjects(el, i) {
-    const project = document.createElement('div');
-    project.classList.add('project');
-
-    const projectBtn = document.createElement('button');
-    projectBtn.classList.add('project__btn');
-    projectBtn.setAttribute('index', i);
-    projectBtn.textContent = el;
-
-    project.appendChild(projectBtn);
-
-    return project;
-  }
-
   function printToDoItem(item) {
     // console.log(str);
     // const item = JSON.parse(str);
-    console.log(item);
+    // console.log(item);
     const toDoItem = document.createElement('div');
     toDoItem.classList.add(`main__item`);
     toDoItem.setAttribute('data-index', `${item.index}`);
@@ -72,12 +58,13 @@ const dom = (() => {
   }
 
   function printProject(e) {
-    const project = JSON.parse(localStorage.getItem(e));
-    // console.log(e.target.textContent);
-    console.log(project);
+    let project;
+    if (JSON.parse(localStorage.getItem(e))) {
+      project = JSON.parse(localStorage.getItem(e));
+    } else return;
+    console.log(!!JSON.parse(localStorage.getItem(e)));
 
     for (const [key, value] of Object.entries(project)) {
-      console.log(value);
       main.appendChild(dom.printToDoItem(value));
     }
   }
@@ -107,23 +94,33 @@ const dom = (() => {
     for (const key of Object.keys(localStorage)
       .map(x => x.toLowerCase())
       .sort()) {
-      console.log(printAllProjects(key, index));
-      sidebarProjectSection.appendChild(printAllProjects(key, index));
+      const projectBtn = document.createElement('button');
+      projectBtn.classList.add('sidebar__btn', `project__${key}`);
+      projectBtn.textContent = key;
       index++;
+      sidebarProjectSection.appendChild(projectBtn);
     }
   }
+
+  function printSidebarLink(e) {
+    main.innerHTML = '';
+    console.log(localStorage.hasOwnProperty(e));
+    if (e === 'all') printAll();
+    if (localStorage.hasOwnProperty(e)) printProject(e);
+  }
+
   return {
     main,
     clearFormInputs,
     toggleModal,
     sidebarProjectSection,
     printAll,
-    printAllProjects,
     printToDoItem,
     printProjectButtonsSidebar,
     newProjectForm,
     newToDoForm,
     printProject,
+    printSidebarLink,
   };
 })();
 

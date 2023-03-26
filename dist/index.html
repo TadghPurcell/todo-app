@@ -15,19 +15,11 @@
       <div class="sidebar__general">
         <h2 class="sidebar__general--header">Home</h2>
 
-        <div class="sidebar__btn btn--all">
-          <button class="sidebar__btn btn--all" autofocus>All</button>
-        </div>
-        <div class="sidebar__btn btn--today">
-          <button class="sidebar__btn btn--today">Today</button>
-        </div>
-        <div class="sidebar__btn btn--this-week">
-          <button class="sidebar__btn btn--this-week">This Week</button>
-        </div>
-        <div class="sidebar__btn btn--important">
-          <button class="sidebar__btn btn--important">Important</button>
-        </div>
-        <button class="sidebar__btn btn-add-todo">Add To Do</button>
+        <button class="sidebar__btn btn--all" autofocus>all</button>
+        <button class="sidebar__btn btn--today">today</button>
+        <button class="sidebar__btn btn--this-week">this week</button>
+        <button class="sidebar__btn btn--important">important</button>
+        <button class="sidebar__btn btn-add-todo">add to do</button>
       </div>
 
       <div class="sidebar__projects">
@@ -51,7 +43,7 @@
       <form action="">
         <div class="new-project-form__title">
           <p><label for="title">Title</label></p>
-          <p><input type="text" name="title" id="title" /></p>
+          <p><input type="text" name="title" id="title" required /></p>
         </div>
         <div class="new-project-form__buttons">
           <button class="btn btn-create-project">Create Project</button>
@@ -63,19 +55,19 @@
       <form action="">
         <div class="new-todo-form__title">
           <p><label for="title">Title</label></p>
-          <p><input type="text" name="title" id="title" /></p>
+          <p><input type="text" name="title" id="title" required /></p>
         </div>
         <div class="desc">
           <p><label for="desc">Desc</label></p>
-          <p><input type="text" name="desc" id="desc" /></p>
+          <p><input type="text" name="desc" id="desc" required /></p>
         </div>
         <div class="due-date">
           <p><label for="due-date">Due Date</label></p>
-          <p><input type="text" name="due-date" id="due-date" /></p>
+          <p><input type="date" name="due-date" id="due-date" required /></p>
         </div>
         <div class="priority">
           <p><label for="priority">Priority</label></p>
-          <p><input type="text" name="priority" id="priority" /></p>
+          <p><input type="text" name="priority" id="priority" required /></p>
         </div>
         <div class="new-todo-form__buttons">
           <button class="btn btn-add-form new-todo">Add to do</button>

@@ -20,6 +20,11 @@
 
   &__projects {
     color: var(--light-text);
+
+    &--container {
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   &__btn {

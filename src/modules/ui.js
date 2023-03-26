@@ -21,8 +21,9 @@ const userInterface = (() => {
         e.forEach(btn => btn.classList.remove('active'));
         btn.classList.add('active');
         dom.main.innerHTML = '';
-        console.log(btn.textContent);
-        dom.printProject(btn.textContent);
+        // console.log(btn.textContent);
+        // dom.printProject(btn.textContent);
+        dom.printSidebarLink(btn.textContent);
       });
     });
   }
@@ -55,8 +56,6 @@ const userInterface = (() => {
       dom.newToDoForm.classList.add('hidden');
     });
 
-    btnAll.addEventListener('click', dom.printAll);
-
     btnAddToDoSidebar.addEventListener('click', dom.toggleModal);
 
     btnCreateProject.addEventListener('click', function (e) {
@@ -70,24 +69,17 @@ const userInterface = (() => {
       dom.sidebarProjectSection.innerHTML = '';
       dom.printProjectButtonsSidebar();
       dom.newProjectForm.classList.add('hidden');
-      const allProjectBtns = [...document.querySelectorAll('.project__btn')];
-      addSidebarEventListeners(allProjectBtns);
+      const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
+      addSidebarEventListeners(allSidebarBtns);
     });
   }
 
   function init() {
     dom.printProjectButtonsSidebar();
     dom.printAll();
-    const allProjectBtns = [...document.querySelectorAll('.project__btn')];
+    const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
     // console.log(allProjectBtns);
-    addSidebarEventListeners(allProjectBtns);
-    // allProjectBtns.forEach(btn => {
-    //   btn.addEventListener('click', function (e) {
-    //     allProjectBtns.forEach(btn => btn.classList.remove('active'));
-    //     btn.classList.add('active');
-    //     dom.main.innerHTML = '';
-    //   });
-    // });
+    addSidebarEventListeners(allSidebarBtns);
   }
 
   return { addEventListeners, init };

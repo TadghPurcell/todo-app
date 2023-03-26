@@ -7,7 +7,7 @@ class MakeToDoItem {
     this.dueDate = dueDate;
     this.priority = priority;
     this.project = project;
-    this.dateCreated = new Date();
+    this.dateCreated = +new Date();
     this.index;
     this.complete = false;
   }
@@ -38,7 +38,8 @@ function getToDoItems() {
       toDoItems.push(item);
     }
   }
-  return toDoItems;
+
+  return toDoItems.sort((a, b) => b.dateCreated - a.dateCreated);
 }
 
 function editCompleteStatus(e) {

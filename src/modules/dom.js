@@ -34,9 +34,9 @@ const dom = (() => {
     desc.classList.add('desc');
     desc.textContent = `${item.desc || ''}`;
 
-    const dateCreated = document.createElement('p'); // maybe not
-    dateCreated.classList.add('date-created');
-    dateCreated.textContent = item.dateCreated.slice(0, 10);
+    // const dateCreated = document.createElement('p'); // maybe not
+    // dateCreated.classList.add('date-created');
+    // dateCreated.textContent = item.dateCreated.slice(0, 10);
     // dateCreated.textContent = Intl.DateTimeFormat('en-US').format(
     //   item.dateCreated
     // );
@@ -63,7 +63,6 @@ const dom = (() => {
     toDoItem.appendChild(btnComplete);
     toDoItem.appendChild(title);
     toDoItem.appendChild(desc);
-    toDoItem.appendChild(dateCreated);
     toDoItem.appendChild(dueDate);
     toDoItem.appendChild(priority);
     toDoItem.appendChild(btnDelete);
@@ -74,14 +73,16 @@ const dom = (() => {
 
   function printProject(e) {
     let project;
+    const sortedArray = [];
     if (JSON.parse(localStorage.getItem(e))) {
       project = JSON.parse(localStorage.getItem(e));
     } else return;
-    console.log(!!JSON.parse(localStorage.getItem(e)));
-
     for (const [key, value] of Object.entries(project)) {
-      main.appendChild(printToDoItem(value));
+      sortedArray.push(value);
     }
+    sortedArray
+      .sort((a, b) => b.dateCreated - a.dateCreated)
+      .forEach(x => main.appendChild(printToDoItem(x)));
   }
 
   function toggleModal(e) {
@@ -117,8 +118,7 @@ const dom = (() => {
       .forEach(item => main.appendChild(printToDoItem(item)));
   }
 
-  function printComplete(e) {
-    console.log(localStorage);
+  function printComplete() {
     getToDoItems()
       .filter(item => item.complete)
       .forEach(item => main.appendChild(printToDoItem(item)));

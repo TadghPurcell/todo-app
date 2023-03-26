@@ -34,12 +34,6 @@ const dom = (() => {
     desc.classList.add('desc');
     desc.textContent = `${item.desc || ''}`;
 
-    // const dateCreated = document.createElement('p'); // maybe not
-    // dateCreated.classList.add('date-created');
-    // dateCreated.textContent = item.dateCreated.slice(0, 10);
-    // dateCreated.textContent = Intl.DateTimeFormat('en-US').format(
-    //   item.dateCreated
-    // );
     const dueDate = document.createElement('p');
     dueDate.classList.add('due-date');
     dueDate.textContent = `${item.dueDate || ''}`;
@@ -54,7 +48,7 @@ const dom = (() => {
 
     const btnDelete = document.createElement('button');
     btnDelete.classList.add('btn-delete');
-    btnDelete.textContent = 'delete';
+    btnDelete.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 3 16 18"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>`;
 
     const lastNode = document.createElement('div');
     lastNode.textContent = item.project;

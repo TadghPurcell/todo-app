@@ -64,19 +64,24 @@ function editCompleteStatus(e) {
 }
 
 function deleteToDoItem(e) {
+  console.log(e.target.parentNode.parentNode.lastChild.textContent);
   const projectDeserialized = JSON.parse(
-    localStorage.getItem(e.target.parentNode.lastChild.textContent)
+    localStorage.getItem(e.target.parentNode.parentNode.lastChild.textContent)
   );
   for (const item of Object.values(projectDeserialized)) {
-    if (item.title === e.target.parentNode.childNodes[1].textContent) {
+    if (
+      item.title === e.target.parentNode.parentNode.childNodes[1].textContent
+    ) {
       delete projectDeserialized[item.title];
       localStorage.setItem(
-        e.target.parentNode.lastChild.textContent,
+        e.target.parentNode.parentNode.lastChild.textContent,
         JSON.stringify(projectDeserialized)
       );
     }
   }
-  console.log(localStorage[e.target.parentNode.lastChild.textContent]);
+  console.log(
+    localStorage[e.target.parentNode.parentNode.lastChild.textContent]
+  );
 
   return getToDoItems();
 }

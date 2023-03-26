@@ -52,12 +52,22 @@ const dom = (() => {
     btnComplete.classList.add('btn-complete');
     btnComplete.textContent = 'not complete';
 
+    const btnDelete = document.createElement('button');
+    btnDelete.classList.add('btn-delete');
+    btnDelete.textContent = 'delete';
+
+    const lastNode = document.createElement('div');
+    lastNode.textContent = item.project;
+    lastNode.classList.add('hidden');
+
     toDoItem.appendChild(btnComplete);
     toDoItem.appendChild(title);
     toDoItem.appendChild(desc);
     toDoItem.appendChild(dateCreated);
     toDoItem.appendChild(dueDate);
     toDoItem.appendChild(priority);
+    toDoItem.appendChild(btnDelete);
+    toDoItem.appendChild(lastNode);
 
     return toDoItem;
   }

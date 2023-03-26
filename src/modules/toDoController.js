@@ -42,20 +42,39 @@ function getToDoItems() {
 }
 
 function editCompleteStatus(e) {
-  const project = toDoItems.find(
-    x => x.title === e.target.nextSibling.textContent
+  const projectDeserialized = JSON.parse(
+    localStorage.getItem(e.target.parentNode.lastChild.textContent)
   );
-  const projectDeserialized = JSON.parse(localStorage.getItem(project.project));
   for (const item of Object.values(projectDeserialized)) {
     if (item.title === e.target.nextSibling.textContent) {
       item.complete = !item.complete;
       localStorage.setItem(
-        project.project,
+        e.target.parentNode.lastChild.textContent,
         JSON.stringify(projectDeserialized)
       );
     }
   }
   console.log(localStorage.school);
+
+  return getToDoItems();
+}
+
+function deleteToDoItem(e) {
+  const projectDeserialized = JSON.parse(
+    localStorage.getItem(e.target.parentNode.lastChild.textContent)
+  );
+  for (const item of Object.values(projectDeserialized)) {
+    if (item.title === e.target.parentNode.childNodes[1].textContent) {
+      delete projectDeserialized[item.title];
+      localStorage.setItem(
+        e.target.parentNode.lastChild.textContent,
+        JSON.stringify(projectDeserialized)
+      );
+    }
+  }
+  console.log(localStorage.school);
+
+  return getToDoItems();
 }
 
 export {
@@ -64,4 +83,5 @@ export {
   addProject,
   getToDoItems,
   editCompleteStatus,
+  deleteToDoItem,
 };

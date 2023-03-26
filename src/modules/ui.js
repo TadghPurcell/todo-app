@@ -5,6 +5,7 @@ import {
   addProject,
   getToDoItems,
   editCompleteStatus,
+  deleteToDoItem,
 } from './toDoController';
 
 const userInterface = (() => {
@@ -88,10 +89,20 @@ const userInterface = (() => {
 
     const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
     const allCompleteBtns = [...document.querySelectorAll('.btn-complete')];
+    const allDeleteBtns = [...document.querySelectorAll('.btn-delete')];
+    const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(x =>
+      x.classList.contains('active')
+    );
 
     allCompleteBtns.forEach(btn =>
+      btn.addEventListener('click', editCompleteStatus)
+    );
+
+    allDeleteBtns.forEach(btn =>
       btn.addEventListener('click', function (e) {
-        console.log(editCompleteStatus(e));
+        deleteToDoItem(e);
+        console.log(activeBtn.textContent);
+        dom.printSidebarLink(activeBtn.textContent);
       })
     );
 

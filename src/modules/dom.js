@@ -22,9 +22,6 @@ const dom = (() => {
   }
 
   function printToDoItem(item) {
-    // console.log(str);
-    // const item = JSON.parse(str);
-    // console.log(item);
     const toDoItem = document.createElement('div');
     toDoItem.classList.add(`main__item`);
     toDoItem.setAttribute('data-index', `${item.index}`);
@@ -51,6 +48,11 @@ const dom = (() => {
     priority.classList.add('priority');
     priority.textContent = `${item.priority || ''}`;
 
+    const btnComplete = document.createElement('button');
+    btnComplete.classList.add('btn-complete');
+    btnComplete.textContent = 'not complete';
+
+    toDoItem.appendChild(btnComplete);
     toDoItem.appendChild(title);
     toDoItem.appendChild(desc);
     toDoItem.appendChild(dateCreated);

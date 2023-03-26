@@ -1,5 +1,11 @@
 import dom from './dom';
-import { createNewToDoItem, addToDoItem, addProject } from './toDoController';
+import {
+  createNewToDoItem,
+  addToDoItem,
+  addProject,
+  getToDoItems,
+  editCompleteStatus,
+} from './toDoController';
 
 const userInterface = (() => {
   //form elements
@@ -76,8 +82,16 @@ const userInterface = (() => {
 
   function init() {
     dom.printProjectButtonsSidebar();
-    const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
     dom.printSidebarLink('all');
+
+    const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
+    const allCompleteBtns = [...document.querySelectorAll('.btn-complete')];
+
+    allCompleteBtns.forEach(btn =>
+      btn.addEventListener('click', function (e) {
+        console.log(editCompleteStatus(e));
+      })
+    );
 
     // console.log(allProjectBtns);
     addSidebarEventListeners(allSidebarBtns);

@@ -1,3 +1,5 @@
+let toDoItems = [];
+
 class MakeToDoItem {
   constructor(title = 'test', desc = 'test', dueDate, priority) {
     this.title = title;
@@ -5,6 +7,8 @@ class MakeToDoItem {
     this.dueDate = dueDate;
     this.priority = priority;
     this.dateCreated = new Date();
+    this.index;
+    this.complete = false;
   }
 }
 
@@ -27,7 +31,7 @@ function createNewToDoItem(a, b, c, d) {
 }
 
 function getToDoItems() {
-  const toDoItems = [];
+  toDoItems = [];
   for (const project of Object.values(localStorage)) {
     for (const item of Object.values(JSON.parse(project))) {
       toDoItems.push(item);
@@ -36,4 +40,22 @@ function getToDoItems() {
   return toDoItems;
 }
 
-export { createNewToDoItem, addToDoItem, addProject, getToDoItems };
+function editCompleteStatus(e) {
+  toDoItems.forEach(item => {
+    if (item.title === e.target.nextSibling.textContent) {
+      console.log(item);
+
+      item.complete = !item.complete;
+      console.log(item.complete);
+    }
+  });
+  return toDoItems;
+}
+
+export {
+  createNewToDoItem,
+  addToDoItem,
+  addProject,
+  getToDoItems,
+  editCompleteStatus,
+};

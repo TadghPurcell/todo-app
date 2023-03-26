@@ -4,7 +4,7 @@ class MakeToDoItem {
     this.desc = desc;
     this.dueDate = dueDate;
     this.priority = priority;
-    this.dateCreated = new Date().toISOString();
+    this.dateCreated = new Date();
   }
 }
 
@@ -26,4 +26,14 @@ function createNewToDoItem(a, b, c, d) {
   return new MakeToDoItem(a, b, c, d);
 }
 
-export { createNewToDoItem, addToDoItem, addProject };
+function getToDoItems() {
+  const toDoItems = [];
+  for (const project of Object.values(localStorage)) {
+    for (const item of Object.values(JSON.parse(project))) {
+      toDoItems.push(item);
+    }
+  }
+  return toDoItems;
+}
+
+export { createNewToDoItem, addToDoItem, addProject, getToDoItems };

@@ -1,3 +1,4 @@
+import { getToDoItems } from './toDoController';
 import { isToday, isThisWeek, parseISO } from 'date-fns';
 
 const dom = (() => {
@@ -82,38 +83,26 @@ const dom = (() => {
     }
   }
 
-  function printAll(e) {
-    for (const project of Object.values(localStorage)) {
-      for (const item of Object.values(JSON.parse(project))) {
-        main.appendChild(dom.printToDoItem(item));
-      }
-    }
+  function printAll() {
+    getToDoItems().forEach(item => main.appendChild(dom.printToDoItem(item)));
   }
 
   function printToday() {
-    for (const project of Object.values(localStorage)) {
-      for (const item of Object.values(JSON.parse(project))) {
-        if (isToday(parseISO(item.dueDate)))
-          main.appendChild(dom.printToDoItem(item));
-      }
-    }
+    getToDoItems()
+      .filter(item => isToday(parseISO(item.dueDate)))
+      .forEach(item => main.appendChild(dom.printToDoItem(item)));
   }
 
   function printThisWeek() {
-    for (const project of Object.values(localStorage)) {
-      for (const item of Object.values(JSON.parse(project))) {
-        console.log(isThisWeek(parseISO(item.dueDate)));
-        if (isThisWeek(parseISO(item.dueDate)))
-          main.appendChild(dom.printToDoItem(item));
-      }
-    }
+    getToDoItems()
+      .filter(item => isThisWeek(parseISO(item.dueDate)))
+      .forEach(item => main.appendChild(dom.printToDoItem(item)));
   }
+
   function printImportant() {
-    for (const project of Object.values(localStorage)) {
-      for (const item of Object.values(JSON.parse(project))) {
-        if (item.priority === 'high') main.appendChild(dom.printToDoItem(item));
-      }
-    }
+    getToDoItems()
+      .filter(item => item.priority === 'high')
+      .forEach(item => main.appendChild(dom.printToDoItem(item)));
   }
 
   function printProjectButtonsSidebar() {

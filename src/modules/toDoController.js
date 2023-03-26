@@ -1,11 +1,12 @@
 let toDoItems = [];
 
 class MakeToDoItem {
-  constructor(title = 'test', desc = 'test', dueDate, priority) {
+  constructor(title = 'test', desc = 'test', dueDate, priority, project) {
     this.title = title;
     this.desc = desc;
     this.dueDate = dueDate;
     this.priority = priority;
+    this.project = project;
     this.dateCreated = new Date();
     this.index;
     this.complete = false;
@@ -26,8 +27,8 @@ function addToDoItem(project, toDoItem) {
   return updatedProject;
 }
 
-function createNewToDoItem(a, b, c, d) {
-  return new MakeToDoItem(a, b, c, d);
+function createNewToDoItem(a, b, c, d, e) {
+  return new MakeToDoItem(a, b, c, d, e);
 }
 
 function getToDoItems() {
@@ -41,15 +42,20 @@ function getToDoItems() {
 }
 
 function editCompleteStatus(e) {
-  toDoItems.forEach(item => {
+  const project = toDoItems.find(
+    x => x.title === e.target.nextSibling.textContent
+  );
+  const projectDeserialized = JSON.parse(localStorage.getItem(project.project));
+  for (const item of Object.values(projectDeserialized)) {
     if (item.title === e.target.nextSibling.textContent) {
-      console.log(item);
-
       item.complete = !item.complete;
-      console.log(item.complete);
+      localStorage.setItem(
+        project.project,
+        JSON.stringify(projectDeserialized)
+      );
     }
-  });
-  return toDoItems;
+  }
+  console.log(localStorage.school);
 }
 
 export {

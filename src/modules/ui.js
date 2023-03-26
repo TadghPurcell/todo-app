@@ -43,16 +43,18 @@ const userInterface = (() => {
     btnAddToDoForm.addEventListener('click', function (e) {
       e.preventDefault();
       dom.main.innerHTML = '';
+      const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(
+        x => x.classList.contains('active')
+      );
+
       const newItem = createNewToDoItem(
         `${e.target.form.title.value}`,
         `${desc.value}`,
         `${dueDate.value}`,
-        `${priority.value}`
+        `${priority.value}`,
+        `${activeBtn.textContent}`
       );
 
-      const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(
-        x => x.classList.contains('active')
-      );
       console.log(activeBtn.textContent);
 
       addToDoItem(activeBtn.textContent, newItem);

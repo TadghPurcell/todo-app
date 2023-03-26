@@ -77,7 +77,8 @@ const userInterface = (() => {
   function init() {
     dom.printProjectButtonsSidebar();
     const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
-    dom.printAll();
+    dom.printSidebarLink('all');
+
     // console.log(allProjectBtns);
     addSidebarEventListeners(allSidebarBtns);
   }

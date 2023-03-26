@@ -1,3 +1,5 @@
+import { isToday, parseISO } from 'date-fns';
+
 const dom = (() => {
   const main = document.querySelector('main');
   const sidebar = document.querySelector('aside');
@@ -80,7 +82,24 @@ const dom = (() => {
     }
   }
 
-  function printAll() {
+  function printAll(e) {
+    for (const project of Object.values(localStorage)) {
+      for (const item of Object.values(JSON.parse(project))) {
+        main.appendChild(dom.printToDoItem(item));
+      }
+    }
+  }
+
+  function printToday() {
+    for (const project of Object.values(localStorage)) {
+      for (const item of Object.values(JSON.parse(project))) {
+        if (isToday(parseISO(item.dueDate)))
+          main.appendChild(dom.printToDoItem(item));
+      }
+    }
+  }
+
+  function printThisWeek() {
     for (const project of Object.values(localStorage)) {
       for (const item of Object.values(JSON.parse(project))) {
         main.appendChild(dom.printToDoItem(item));
@@ -114,8 +133,10 @@ const dom = (() => {
     console.log(localStorage.hasOwnProperty(e));
     console.log(e);
     if (e === 'all') printAll();
-    if (localStorage.hasOwnProperty(e)) printProject(e);
+    if (e === 'today') printToday();
+    if (e === 'this week') printThisWeek();
     if (e === 'important') printImportant();
+    if (localStorage.hasOwnProperty(e)) printProject(e);
   }
 
   return {
@@ -123,7 +144,6 @@ const dom = (() => {
     clearFormInputs,
     toggleModal,
     sidebarProjectSection,
-    printAll,
     printToDoItem,
     printProjectButtonsSidebar,
     newProjectForm,

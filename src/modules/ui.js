@@ -3,7 +3,6 @@ import {
   createNewToDoItem,
   addToDoItem,
   addProject,
-  getToDoItems,
   editCompleteStatus,
   deleteToDoItem,
 } from './toDoController';

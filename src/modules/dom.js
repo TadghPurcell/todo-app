@@ -50,7 +50,7 @@ const dom = (() => {
 
     const btnComplete = document.createElement('button');
     btnComplete.classList.add('btn-complete');
-    btnComplete.textContent = 'not complete';
+    btnComplete.textContent = `${item.complete ? 'complete' : 'not complete'}`;
 
     const btnDelete = document.createElement('button');
     btnDelete.classList.add('btn-delete');
@@ -80,7 +80,7 @@ const dom = (() => {
     console.log(!!JSON.parse(localStorage.getItem(e)));
 
     for (const [key, value] of Object.entries(project)) {
-      main.appendChild(dom.printToDoItem(value));
+      main.appendChild(printToDoItem(value));
     }
   }
 
@@ -96,25 +96,32 @@ const dom = (() => {
   }
 
   function printAll() {
-    getToDoItems().forEach(item => main.appendChild(dom.printToDoItem(item)));
+    getToDoItems().forEach(item => main.appendChild(printToDoItem(item)));
   }
 
   function printToday() {
     getToDoItems()
       .filter(item => isToday(parseISO(item.dueDate)))
-      .forEach(item => main.appendChild(dom.printToDoItem(item)));
+      .forEach(item => main.appendChild(printToDoItem(item)));
   }
 
   function printThisWeek() {
     getToDoItems()
       .filter(item => isThisWeek(parseISO(item.dueDate)))
-      .forEach(item => main.appendChild(dom.printToDoItem(item)));
+      .forEach(item => main.appendChild(printToDoItem(item)));
   }
 
   function printImportant() {
     getToDoItems()
       .filter(item => item.priority === 'high')
-      .forEach(item => main.appendChild(dom.printToDoItem(item)));
+      .forEach(item => main.appendChild(printToDoItem(item)));
+  }
+
+  function printComplete(e) {
+    console.log(localStorage);
+    getToDoItems()
+      .filter(item => item.complete)
+      .forEach(item => main.appendChild(printToDoItem(item)));
   }
 
   function printProjectButtonsSidebar() {
@@ -137,6 +144,7 @@ const dom = (() => {
     if (e === 'today') printToday();
     if (e === 'this week') printThisWeek();
     if (e === 'important') printImportant();
+    if (e === 'complete') printComplete();
     if (localStorage.hasOwnProperty(e)) printProject(e);
   }
 
@@ -145,7 +153,6 @@ const dom = (() => {
     clearFormInputs,
     toggleModal,
     sidebarProjectSection,
-    printToDoItem,
     printProjectButtonsSidebar,
     newProjectForm,
     newToDoForm,

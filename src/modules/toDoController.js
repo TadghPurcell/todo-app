@@ -48,13 +48,16 @@ function editCompleteStatus(e) {
   for (const item of Object.values(projectDeserialized)) {
     if (item.title === e.target.nextSibling.textContent) {
       item.complete = !item.complete;
+      item.complete
+        ? (e.target.textContent = 'complete')
+        : (e.target.textContent = 'not complete');
       localStorage.setItem(
         e.target.parentNode.lastChild.textContent,
         JSON.stringify(projectDeserialized)
       );
     }
   }
-  console.log(localStorage.school);
+  console.log(localStorage[e.target.parentNode.lastChild.textContent]);
 
   return getToDoItems();
 }
@@ -72,7 +75,7 @@ function deleteToDoItem(e) {
       );
     }
   }
-  console.log(localStorage.school);
+  console.log(localStorage[e.target.parentNode.lastChild.textContent]);
 
   return getToDoItems();
 }

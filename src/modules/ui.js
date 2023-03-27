@@ -41,6 +41,7 @@ const userInterface = (() => {
     btnAddToDoForm.addEventListener('click', function (e) {
       e.preventDefault();
       console.log(btnAddToDoForm.form.checkValidity());
+
       const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(
         x => x.classList.contains('active')
       );

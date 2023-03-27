@@ -81,7 +81,11 @@ const dom = (() => {
     btnAddToDoMain.classList.add('btn-add-todo');
     btnAddToDoMain.textContent = 'add to do';
     main.appendChild(btnAddToDoMain);
-    btnAddToDoMain.addEventListener('click', toggleModal);
+    btnAddToDoMain.addEventListener('click', function (e) {
+      toggleModal(e);
+      const today = new Date().toISOString().split('T')[0];
+      document.querySelector('#due-date').setAttribute('min', today);
+    });
 
     let project;
     const sortedArray = [];

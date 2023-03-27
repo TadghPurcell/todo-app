@@ -79,6 +79,7 @@ const dom = (() => {
 
       dueDate.setAttribute('min', today);
       getCurrentlyEditedItem(item.title, item.project);
+      btnAddToDoForm.classList.add('hidden');
       btnEditToDoForm.classList.remove('hidden');
       title.value = item.title;
       desc.value = item.desc;
@@ -114,6 +115,7 @@ const dom = (() => {
     main.appendChild(btnAddToDoMain);
     btnAddToDoMain.addEventListener('click', function (e) {
       toggleModal(e);
+      btnEditToDoForm.classList.add('hidden');
       btnAddToDoForm.classList.remove('hidden');
       const title = document.querySelector('#title-form');
       const desc = document.querySelector('#desc');

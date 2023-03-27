@@ -1,4 +1,4 @@
-import { getToDoItems } from './toDoController';
+import { getToDoItems, editCompleteStatus } from './toDoController';
 import { isToday, isThisWeek, parseISO } from 'date-fns';
 
 const dom = (() => {
@@ -48,6 +48,7 @@ const dom = (() => {
     const btnComplete = document.createElement('button');
     btnComplete.classList.add('btn-complete');
     btnComplete.setAttribute('complete', `${item.complete ? 'true' : 'false'}`);
+    btnComplete.addEventListener('click', editCompleteStatus);
 
     btnCompleteContainer.appendChild(btnComplete);
 

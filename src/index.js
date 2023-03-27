@@ -4,5 +4,6 @@ import { getToDoItems } from './modules/toDoController';
 
 console.log(getToDoItems());
 getToDoItems();
+window.addEventListener('click', () => userInterface.addEventListeners);
 userInterface.addEventListeners();
 userInterface.init();

@@ -36,6 +36,10 @@ const userInterface = (() => {
   }
 
   function addEventListeners() {
+    const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
+    const allCompleteBtns = [...document.querySelectorAll('.btn-complete')];
+    const allDeleteBtns = [...document.querySelectorAll('.btn-delete')];
+
     btnAddProject.addEventListener('click', dom.toggleModal);
     btnResetProject.addEventListener('click', dom.clearFormInputs);
     btnResetToDoForm.addEventListener('click', dom.clearFormInputs);
@@ -43,7 +47,6 @@ const userInterface = (() => {
     btnAddToDoForm.addEventListener('click', function (e) {
       e.preventDefault();
       console.log(btnAddToDoForm.form.checkValidity());
-
       const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(
         x => x.classList.contains('active')
       );
@@ -58,6 +61,7 @@ const userInterface = (() => {
 
       if (btnAddToDoForm.form.checkValidity()) {
         dom.main.innerHTML = '';
+        console.log(activeBtn.textContent);
         addToDoItem(activeBtn.textContent, newItem);
         dom.printProject(activeBtn.textContent);
 
@@ -80,10 +84,23 @@ const userInterface = (() => {
         dom.sidebarProjectSection.innerHTML = '';
         dom.printProjectButtonsSidebar();
         dom.newProjectForm.classList.add('hidden');
-        const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
         addSidebarEventListeners(allSidebarBtns);
       }
     });
+
+    allCompleteBtns.forEach(btn =>
+      btn.addEventListener('click', editCompleteStatus)
+    );
+
+    allDeleteBtns.forEach(btn =>
+      btn.addEventListener('click', function (e) {
+        console.log(e.currentTarget.parentNode.lastChild.textContent);
+        console.log(e.currentTarget);
+        deleteToDoItem(e);
+        console.log(activeBtn.textContent);
+        dom.printSidebarLink(activeBtn.textContent);
+      })
+    );
   }
 
   function init() {

@@ -1,3 +1,4 @@
+import dom from './dom';
 let toDoItems = [];
 
 class MakeToDoItem {
@@ -19,6 +20,7 @@ function addProject(project) {
 
 function addToDoItem(project, toDoItem) {
   console.log(localStorage.getItem(project));
+  console.log(project);
   const updatedProject = JSON.parse(localStorage.getItem(project));
   console.log(updatedProject);
   updatedProject[toDoItem.title] = toDoItem;
@@ -61,6 +63,8 @@ function editCompleteStatus(e) {
       );
     }
   }
+  dom.main.innerHTML = '';
+  dom.printSidebarLink(document.querySelector('.active').textContent);
   console.log(localStorage[e.currentTarget.parentNode.lastChild.textContent]);
 
   return getToDoItems();

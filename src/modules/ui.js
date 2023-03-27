@@ -17,7 +17,7 @@ const userInterface = (() => {
   // const btnAddToDoForm = document.querySelector('.new-todo');
   const btnAddProjectForm = document.querySelector('.new-project');
 
-  const btnResetProject = document.querySelector('.btn-reset-project');
+  // const btnResetProject = document.querySelector('.btn-reset-project');
   // const btnResetToDoForm = document.querySelector('.btn-reset-form');
 
   function addSidebarEventListeners(e) {
@@ -35,11 +35,14 @@ const userInterface = (() => {
     const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
 
     btnAddProject.addEventListener('click', function (e) {
+      dom.newProjectFormButtonContainer.append(dom.printAddButtonProjectForm());
+      dom.newProjectFormButtonContainer.append(dom.printClearBtn());
+      dom.overlay.classList.remove('hidden');
       dom.toggleModal(e);
-      dom.btnEditProjectForm.classList.add('hidden');
-      btnAddProjectForm.classList.remove('hidden');
+      // dom.btnEditProjectForm.classList.add('hidden');
+      // btnAddProjectForm.classList.remove('hidden');
     });
-    btnResetProject.addEventListener('click', dom.clearFormInputs);
+    // btnResetProject.addEventListener('click', dom.clearFormInputs);
     // btnResetToDoForm.addEventListener('click', dom.clearFormInputs);
 
     // btnAddToDoForm.addEventListener('click', function (e) {
@@ -94,41 +97,41 @@ const userInterface = (() => {
     //   }
     // });
 
-    btnAddProjectForm.addEventListener('click', function (e) {
-      e.preventDefault();
-      if (
-        btnAddProjectForm.form.checkValidity() &&
-        dom.btnEditProjectForm.classList.contains('hidden')
-      ) {
-        addProject(e.target.form.title.value);
-        dom.clearFormInputs(e);
-        dom.sidebarProjectSection.innerHTML = '';
-        dom.printProjectButtonsSidebar();
-        dom.newProjectForm.classList.add('hidden');
-        addSidebarEventListeners(allSidebarBtns);
-      }
-    });
+    // btnAddProjectForm.addEventListener('click', function (e) {
+    //   e.preventDefault();
+    //   if (
+    //     btnAddProjectForm.form.checkValidity() &&
+    //     dom.btnEditProjectForm.classList.contains('hidden')
+    //   ) {
+    //     addProject(e.target.form.title.value);
+    //     dom.clearFormInputs(e);
+    //     dom.sidebarProjectSection.innerHTML = '';
+    //     dom.printProjectButtonsSidebar();
+    //     dom.newProjectForm.classList.add('hidden');
+    //     addSidebarEventListeners(allSidebarBtns);
+    //   }
+    // });
   }
 
-  dom.btnEditProjectForm.addEventListener('click', function (e) {
-    e.preventDefault();
-    console.log(e.currentTarget.parentNode);
-    if (
-      dom.btnEditProjectForm.form.checkValidity() &&
-      btnAddProjectForm.classList.contains('hidden')
-    ) {
-      dom.main.innerHTML = '';
-      editProject(e.currentTarget.form.title.value);
-      dom.printSidebarLink(e.currentTarget.form.title.value);
-      dom.sidebarProjectSection.innerHTML = '';
-      dom.printProjectButtonsSidebar();
-      dom.clearFormInputs(e);
+  // dom.btnEditProjectForm.addEventListener('click', function (e) {
+  //   e.preventDefault();
+  //   console.log(e.currentTarget.parentNode);
+  //   if (
+  //     dom.btnEditProjectForm.form.checkValidity() &&
+  //     btnAddProjectForm.classList.contains('hidden')
+  //   ) {
+  //     dom.main.innerHTML = '';
+  //     editProject(e.currentTarget.form.title.value);
+  //     dom.printSidebarLink(e.currentTarget.form.title.value);
+  //     dom.sidebarProjectSection.innerHTML = '';
+  //     dom.printProjectButtonsSidebar();
+  //     dom.clearFormInputs(e);
 
-      dom.newProjectForm.classList.add('hidden');
-      dom.btnAddProjectForm.classList.add('hidden');
-      dom.btnEditProjectForm.classList.add('hidden');
-    }
-  });
+  //     dom.newProjectForm.classList.add('hidden');
+  //     dom.btnAddProjectForm.classList.add('hidden');
+  //     dom.btnEditProjectForm.classList.add('hidden');
+  //   }
+  // });
 
   function init() {
     dom.printProjectButtonsSidebar();

@@ -1,4 +1,6 @@
 import {
+  addProject,
+  editProject,
   addToDoItem,
   editToDoItem,
   createNewToDoItem,
@@ -25,6 +27,9 @@ const dom = (() => {
   const newToDoForm = document.querySelector('.new-todo-form');
   const newToDoFormButtonContainer = document.querySelector(
     '.new-todo-form__buttons'
+  );
+  const newProjectFormButtonContainer = document.querySelector(
+    '.new-project-form__buttons'
   );
   // const btnAddToDoForm = document.querySelector('.new-todo');
   const btnEditToDoForm = document.querySelector('.edit-todo');
@@ -108,6 +113,74 @@ const dom = (() => {
       }
     });
     return btnEditToDoForm;
+  }
+
+  function printAddButtonProjectForm() {
+    const btnAdd = document.createElement('button');
+    btnAdd.classList.add('btn', 'btn-add-form', 'new-project');
+    btnAdd.textContent = 'Add';
+    btnAdd.addEventListener('click', function (e) {
+      const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
+
+      e.preventDefault();
+      console.log(btnAdd.form);
+      if (btnAdd.form.checkValidity()) {
+        addProject(e.target.form.title.value);
+        clearFormInputs(e);
+        sidebarProjectSection.innerHTML = '';
+        printProjectButtonsSidebar();
+        newProjectFormButtonContainer.removeChild(
+          document.querySelector('.new-project')
+        );
+        newProjectFormButtonContainer.removeChild(
+          document.querySelector('.btn-clear-form')
+        );
+        overlay.classList.add('hidden');
+        newProjectForm.classList.add('hidden');
+        allSidebarBtns.forEach(btn => {
+          btn.addEventListener('click', function () {
+            e.forEach(btn => btn.classList.remove('active'));
+            btn.classList.add('active');
+            dom.main.innerHTML = '';
+            dom.printSidebarLink(btn.textContent);
+          });
+        });
+
+        // addSidebarEventListeners(allSidebarBtns);
+      }
+    });
+    return btnAdd;
+  }
+
+  function printEditButtonProjectForm() {
+    const btnEdit = document.createElement('button');
+    btnEdit.classList.add('btn', 'btn-add-form', 'edit-project');
+    btnEdit.textContent = 'Edit';
+    btnEdit.addEventListener('click', function (e) {
+      e.preventDefault();
+      console.log(e.currentTarget.parentNode);
+      if (btnEdit.form.checkValidity()) {
+        main.innerHTML = '';
+        editProject(e.currentTarget.form.title.value);
+        printSidebarLink(e.currentTarget.form.title.value);
+        sidebarProjectSection.innerHTML = '';
+        printProjectButtonsSidebar();
+        clearFormInputs(e);
+        newProjectFormButtonContainer.removeChild(
+          document.querySelector('.edit-project')
+        );
+        newProjectFormButtonContainer.removeChild(
+          document.querySelector('.btn-clear-form')
+        );
+        overlay.classList.add('hidden');
+
+        newProjectForm.classList.add('hidden');
+        // dom.btnAddProjectForm.classList.add('hidden');
+        // dom.btnEditProjectForm.classList.add('hidden');
+      }
+    });
+
+    return btnEdit;
   }
 
   function printFormBtn(e) {
@@ -335,6 +408,7 @@ const dom = (() => {
       deleteBtn.classList.add('btn-delete-project');
       deleteBtn.textContent = 'delete';
       deleteBtn.addEventListener('click', function (e) {
+        overlay.classList.remove('hidden');
         deleteProject(e);
         main.innerHTML = '';
         sidebarProjectSection.innerHTML = '';
@@ -344,14 +418,17 @@ const dom = (() => {
 
       const editBtn = document.createElement('button');
       editBtn.classList.add('btn-edit-project');
-      editBtn.textContent = 'gedit';
+      editBtn.textContent = 'Edit';
       editBtn.addEventListener('click', function (e) {
+        newProjectFormButtonContainer.append(printEditButtonProjectForm());
+        newProjectFormButtonContainer.append(printClearBtn());
+        overlay.classList.remove('hidden');
         getCurrentlyEditedProject(
           e.currentTarget.parentNode.firstChild.textContent
         );
         toggleModal('add-project');
-        btnAddProjectForm.classList.add('hidden');
-        btnEditProjectForm.classList.remove('hidden');
+        // btnAddProjectForm.classList.add('hidden');
+        // btnEditProjectForm.classList.remove('hidden');
         const title = document.querySelector('#title-project');
         console.log(e.currentTarget.parentNode.firstChild.textContent);
         title.value = e.currentTarget.parentNode.firstChild.textContent;
@@ -379,6 +456,7 @@ const dom = (() => {
     main,
     clearFormInputs,
     // btnAddToDoForm,
+    overlay,
     btnEditToDoForm,
     toggleModal,
     sidebarProjectSection,
@@ -389,6 +467,9 @@ const dom = (() => {
     printSidebarLink,
     btnAddProjectForm,
     btnEditProjectForm,
+    newProjectFormButtonContainer,
+    printAddButtonProjectForm,
+    printClearBtn,
   };
 })();
 

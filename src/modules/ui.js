@@ -108,6 +108,7 @@ const userInterface = (() => {
 
   dom.btnEditProjectForm.addEventListener('click', function (e) {
     e.preventDefault();
+    console.log(e.currentTarget.parentNode);
     if (
       dom.btnEditProjectForm.form.checkValidity() &&
       btnAddProjectForm.classList.contains('hidden')

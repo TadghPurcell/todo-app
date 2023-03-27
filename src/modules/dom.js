@@ -4,7 +4,10 @@ import {
   editCompleteStatus,
   getCurrentlyEditedItem,
   getCurrentlyEditedProject,
+  deleteProject,
 } from './toDoController';
+import userInterface from './ui';
+
 import { isToday, isThisWeek, parseISO } from 'date-fns';
 
 const dom = (() => {
@@ -197,8 +200,12 @@ const dom = (() => {
       const deleteBtn = document.createElement('button');
       deleteBtn.classList.add('btn-delete-project');
       deleteBtn.textContent = 'delete';
-      deleteBtn.addEventListener('click', function () {
-        console.log('hey');
+      deleteBtn.addEventListener('click', function (e) {
+        deleteProject(e);
+        main.innerHTML = '';
+        sidebarProjectSection.innerHTML = '';
+        userInterface.addEventListeners();
+        userInterface.init();
       });
 
       const editBtn = document.createElement('button');

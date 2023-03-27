@@ -139,6 +139,11 @@ function getCurrentlyEditedProject(e) {
   currentProject = JSON.parse(localStorage.getItem(e));
 }
 
+function deleteProject(e) {
+  console.log(e.currentTarget.parentNode.firstChild.textContent);
+  localStorage.removeItem(e.currentTarget.parentNode.firstChild.textContent);
+}
+
 function editProject(e) {
   console.log(currentProjectName);
   console.log(e);
@@ -157,4 +162,5 @@ export {
   editToDoItem,
   getCurrentlyEditedProject,
   editProject,
+  deleteProject,
 };

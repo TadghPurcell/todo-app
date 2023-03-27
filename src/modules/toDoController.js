@@ -92,6 +92,19 @@ function deleteToDoItem(e) {
 
   return getToDoItems();
 }
+function editToDoItem(e) {
+  console.log(e.currentTarget.parentNode.lastChild.textContent);
+  const projectDeserialized = JSON.parse(
+    localStorage.getItem(e.currentTarget.parentNode.lastChild.textContent)
+  );
+  for (const item of Object.values(projectDeserialized)) {
+    if (item.title === e.currentTarget.parentNode.childNodes[1].textContent) {
+      for (const property of Object.values(projectDeserialized[item.title]))
+        console.log(property);
+      // projectDeserialized[item.title];
+    }
+  }
+}
 
 export {
   createNewToDoItem,
@@ -100,4 +113,5 @@ export {
   getToDoItems,
   editCompleteStatus,
   deleteToDoItem,
+  editToDoItem,
 };

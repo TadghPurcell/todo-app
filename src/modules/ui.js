@@ -62,7 +62,15 @@ const userInterface = (() => {
 
         dom.clearFormInputs(e);
         dom.newToDoForm.classList.add('hidden');
+        dom.btnAdd.classList.add('hidden');
+        dom.btnEditForm.classList.add('hidden');
       }
+    });
+
+    dom.btnEditForm.addEventListener('click', function () {
+      e.preventDefault();
+
+      console.log('hey');
     });
 
     btnCreateProject.addEventListener('click', function (e) {

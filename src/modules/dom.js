@@ -2,6 +2,7 @@ import {
   deleteToDoItem,
   getToDoItems,
   editCompleteStatus,
+  editToDoItem,
 } from './toDoController';
 import { isToday, isThisWeek, parseISO } from 'date-fns';
 
@@ -14,6 +15,8 @@ const dom = (() => {
 
   const newProjectForm = document.querySelector('.new-project-form');
   const newToDoForm = document.querySelector('.new-todo-form');
+  const btnAdd = document.querySelector('.btn-add-form');
+  const btnEditForm = document.querySelector('.btn-edit-form');
 
   function clearFormInputs(e) {
     e.preventDefault();
@@ -59,12 +62,13 @@ const dom = (() => {
     const btnEdit = document.createElement('button');
     btnEdit.classList.add('btn-edit');
     btnEdit.textContent = 'edit';
-    btnEdit.addEventListener('click', function () {
+    btnEdit.addEventListener('click', function (e) {
       toggleModal('btn-add-todo');
       const title = document.querySelector('#title-form');
       const desc = document.querySelector('#desc');
       const dueDate = document.querySelector('#due-date');
       const priority = document.querySelector('#priority');
+      btnEditForm.classList.remove('hidden');
       console.log(title);
       title.value = item.title;
       desc.value = item.desc;
@@ -100,6 +104,16 @@ const dom = (() => {
     main.appendChild(btnAddToDoMain);
     btnAddToDoMain.addEventListener('click', function (e) {
       toggleModal(e);
+      btnAdd.classList.remove('hidden');
+      const title = document.querySelector('#title-form');
+      const desc = document.querySelector('#desc');
+      const dueDate = document.querySelector('#due-date');
+      const priority = document.querySelector('#priority');
+      console.log(title);
+      title.value = '';
+      desc.value = '';
+      dueDate.value = '';
+      priority.value = '';
       const today = new Date().toISOString().split('T')[0];
       document.querySelector('#due-date').setAttribute('min', today);
     });
@@ -183,6 +197,8 @@ const dom = (() => {
   return {
     main,
     clearFormInputs,
+    btnAdd,
+    btnEditForm,
     toggleModal,
     sidebarProjectSection,
     printProjectButtonsSidebar,

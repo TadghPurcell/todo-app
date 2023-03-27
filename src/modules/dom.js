@@ -42,6 +42,7 @@ const dom = (() => {
     newProjectForm.classList.add('hidden');
     // clearFormInputs(e);
     newToDoFormButtonContainer.innerHTML = '';
+    newProjectFormButtonContainer.innerHTML = '';
   });
 
   function printAddToDoButtonForm() {

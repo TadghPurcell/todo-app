@@ -1,4 +1,7 @@
 import {
+  addToDoItem,
+  editToDoItem,
+  createNewToDoItem,
   deleteToDoItem,
   getToDoItems,
   editCompleteStatus,
@@ -19,13 +22,96 @@ const dom = (() => {
 
   const newProjectForm = document.querySelector('.new-project-form');
   const newToDoForm = document.querySelector('.new-todo-form');
-  const btnAddToDoForm = document.querySelector('.new-todo');
+  const newToDoFormButtonContainer = document.querySelector(
+    '.new-todo-form__buttons'
+  );
+  // const btnAddToDoForm = document.querySelector('.new-todo');
   const btnEditToDoForm = document.querySelector('.edit-todo');
   const btnAddProjectForm = document.querySelector('.new-project');
   const btnEditProjectForm = document.querySelector('.edit-project');
 
+  function removeFirstButton(e) {
+    console.log(e.currentTarget.parentNode);
+  }
+  function printAddToDoButtonForm() {
+    const btnAddToDoForm = document.createElement('button');
+    btnAddToDoForm.classList.add('btn', 'btn-add-form', 'new-todo');
+    btnAddToDoForm.textContent = 'Add';
+    btnAddToDoForm.addEventListener('click', function (e) {
+      e.preventDefault();
+      console.log('well man');
+      console.log(btnAddToDoForm.form.checkValidity());
+
+      const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(
+        x => x.classList.contains('active')
+      );
+
+      const newItem = createNewToDoItem(
+        `${e.target.form.title.value}`,
+        `${e.target.form.desc.value}`,
+        `${e.target.form['due-date'].value}`,
+        `${e.target.form.priority.value}`,
+        `${activeBtn.textContent}`
+      );
+
+      if (btnAddToDoForm.form.checkValidity()) {
+        main.innerHTML = '';
+        console.log(activeBtn.textContent);
+        addToDoItem(activeBtn.textContent, newItem);
+        printSidebarLink(activeBtn.textContent);
+
+        clearFormInputs(e);
+        newToDoForm.classList.add('hidden');
+        // btnAddToDoForm.parentNode.removeChild(btnAddToDoForm);
+        // btnAddToDoForm.classList.add('hidden');
+        // btnEditToDoForm.classList.add('hidden');
+      }
+    });
+
+    return btnAddToDoForm;
+  }
+
+  function printEditButtonToDoForm() {
+    const btnEditToDoForm = document.createElement('button');
+    btnEditToDoForm.classList.add('btn', 'btn-edit-form', 'new-todo');
+    btnEditToDoForm.textContent = 'Edit';
+    btnEditToDoForm.addEventListener('click', function (e) {
+      e.preventDefault();
+      const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(
+        x => x.classList.contains('active')
+      );
+      console.log(e.currentTarget.form.title.value);
+      if (btnEditToDoForm.form.checkValidity()) {
+        main.innerHTML = '';
+        editToDoItem(e);
+        console.log(activeBtn.textContent);
+        printSidebarLink(activeBtn.textContent);
+
+        clearFormInputs(e);
+        newToDoForm.classList.add('hidden');
+        // dom.btnAddToDoForm.classList.add('hidden');
+        // dom.btnEditToDoForm.classList.add('hidden');
+      }
+    });
+    return btnEditToDoForm;
+  }
+
+  function printFormBtn(e) {
+    if (e === 'Add') return printAddToDoButtonForm();
+    if (e === 'Edit') return printEditButtonToDoForm();
+  }
+
+  function printClearBtn() {
+    const clearBtn = document.createElement('button');
+    clearBtn.classList.add('btn', 'btn-clear-form');
+    clearBtn.textContent = 'Clear';
+    clearBtn.addEventListener('click', clearFormInputs);
+    return clearBtn;
+  }
+
   function clearFormInputs(e) {
     e.preventDefault();
+    console.log(e.target.form);
     console.log(e.target.form.length);
     if (e.target.form.length > 4) {
       e.target.form.title.value = '';
@@ -33,6 +119,11 @@ const dom = (() => {
       e.target.form['due-date'].value = '';
       e.target.form.priority.value = '';
     } else e.target.form.title.value = '';
+    const newBtn = e.currentTarget.previousElementSibling?.textContent;
+    console.log(newBtn);
+    newToDoFormButtonContainer.innerHTML = '';
+    newBtn && newToDoFormButtonContainer.appendChild(printFormBtn(newBtn));
+    newToDoFormButtonContainer.appendChild(printClearBtn());
   }
 
   function printToDoItem(item) {
@@ -70,6 +161,13 @@ const dom = (() => {
     btnEdit.classList.add('btn-edit');
     btnEdit.textContent = 'edit';
     btnEdit.addEventListener('click', function (e) {
+      removeFirstButton(e);
+      // console.log(printEditButtonToDoForm(e));
+      if (newToDoFormButtonContainer.firstElementChild.textContent !== 'Edit')
+        newToDoFormButtonContainer.insertBefore(
+          printEditButtonToDoForm(e),
+          newToDoFormButtonContainer.firstChild
+        );
       toggleModal('btn-add-todo');
       const title = document.querySelector('#title-form');
       const desc = document.querySelector('#desc');
@@ -79,8 +177,8 @@ const dom = (() => {
 
       dueDate.setAttribute('min', today);
       getCurrentlyEditedItem(item.title, item.project);
-      btnAddToDoForm.classList.add('hidden');
-      btnEditToDoForm.classList.remove('hidden');
+      // btnAddToDoForm.classList.add('hidden');
+      // btnEditToDoForm.classList.remove('hidden');
       title.value = item.title;
       desc.value = item.desc;
       dueDate.value = item.dueDate;
@@ -115,8 +213,19 @@ const dom = (() => {
     main.appendChild(btnAddToDoMain);
     btnAddToDoMain.addEventListener('click', function (e) {
       toggleModal(e);
-      btnEditToDoForm.classList.add('hidden');
-      btnAddToDoForm.classList.remove('hidden');
+      if (newToDoFormButtonContainer.firstElementChild.textContent !== 'Add')
+        newToDoFormButtonContainer.insertBefore(
+          printAddToDoButtonForm(),
+          newToDoFormButtonContainer.firstChild
+        );
+      // console.log(newToDoFormButtonContainer.firstElementChild.textContent);
+      // newToDoFormButtonContainer.insertBefore(
+      //   printAddButtonForm(),
+      //   newToDoFormButtonContainer.firstChild
+      // );
+
+      // btnEditToDoForm.classList.add('hidden');
+      // btnAddToDoForm.classList.remove('hidden');
       const title = document.querySelector('#title-form');
       const desc = document.querySelector('#desc');
       const dueDate = document.querySelector('#due-date');
@@ -212,7 +321,7 @@ const dom = (() => {
 
       const editBtn = document.createElement('button');
       editBtn.classList.add('btn-edit-project');
-      editBtn.textContent = 'edit';
+      editBtn.textContent = 'gedit';
       editBtn.addEventListener('click', function (e) {
         getCurrentlyEditedProject(
           e.currentTarget.parentNode.firstChild.textContent
@@ -246,7 +355,7 @@ const dom = (() => {
   return {
     main,
     clearFormInputs,
-    btnAddToDoForm,
+    // btnAddToDoForm,
     btnEditToDoForm,
     toggleModal,
     sidebarProjectSection,

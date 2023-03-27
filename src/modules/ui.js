@@ -14,7 +14,7 @@ const userInterface = (() => {
   const priority = document.querySelector('#priority');
   //buttons
   const btnAddProject = document.querySelector('.add-project');
-  const btnAddToDoForm = document.querySelector('.new-todo');
+  // const btnAddToDoForm = document.querySelector('.new-todo');
   const btnAddProjectForm = document.querySelector('.new-project');
 
   const btnResetProject = document.querySelector('.btn-reset-project');
@@ -42,59 +42,57 @@ const userInterface = (() => {
     btnResetProject.addEventListener('click', dom.clearFormInputs);
     btnResetToDoForm.addEventListener('click', dom.clearFormInputs);
 
-    btnAddToDoForm.addEventListener('click', function (e) {
-      e.preventDefault();
-      console.log(btnAddToDoForm.form.checkValidity());
+    // btnAddToDoForm.addEventListener('click', function (e) {
 
-      const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(
-        x => x.classList.contains('active')
-      );
+    //   e.preventDefault();
+    //   console.log(btnAddToDoForm.form.checkValidity());
 
-      const newItem = createNewToDoItem(
-        `${e.target.form.title.value}`,
-        `${desc.value}`,
-        `${dueDate.value}`,
-        `${priority.value}`,
-        `${activeBtn.textContent}`
-      );
+    //   const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(
+    //     x => x.classList.contains('active')
+    //   );
 
-      if (
-        btnAddToDoForm.form.checkValidity() &&
-        dom.btnEditToDoForm.classList.contains('hidden')
-      ) {
-        dom.main.innerHTML = '';
-        console.log(activeBtn.textContent);
-        addToDoItem(activeBtn.textContent, newItem);
-        dom.printSidebarLink(activeBtn.textContent);
+    //   const newItem = createNewToDoItem(
+    //     `${e.target.form.title.value}`,
+    //     `${desc.value}`,
+    //     `${dueDate.value}`,
+    //     `${priority.value}`,
+    //     `${activeBtn.textContent}`
+    //   );
 
-        dom.clearFormInputs(e);
-        dom.newToDoForm.classList.add('hidden');
-        dom.btnAddToDoForm.classList.add('hidden');
-        dom.btnEditToDoForm.classList.add('hidden');
-      }
-    });
+    //   if (
+    //     btnAddToDoForm.form.checkValidity() &&
+    //     dom.btnEditToDoForm.classList.contains('hidden')
+    //   ) {
+    //     dom.main.innerHTML = '';
+    //     console.log(activeBtn.textContent);
+    //     addToDoItem(activeBtn.textContent, newItem);
+    //     dom.printSidebarLink(activeBtn.textContent);
 
-    dom.btnEditToDoForm.addEventListener('click', function (e) {
-      e.preventDefault();
-      const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(
-        x => x.classList.contains('active')
-      );
-      console.log(e.currentTarget.form.title.value);
-      if (
-        dom.btnEditToDoForm.form.checkValidity() &&
-        btnAddToDoForm.classList.contains('hidden')
-      ) {
-        dom.main.innerHTML = '';
-        editToDoItem(e);
-        console.log(activeBtn.textContent);
-        dom.printSidebarLink(activeBtn.textContent);
+    //     dom.clearFormInputs(e);
+    //     dom.newToDoForm.classList.add('hidden');
+    //     dom.btnAddToDoForm.classList.add('hidden');
+    //     dom.btnEditToDoForm.classList.add('hidden');
+    //   }
+    // });
 
-        dom.clearFormInputs(e);
-        dom.newToDoForm.classList.add('hidden');
-        dom.btnAddToDoForm.classList.add('hidden');
-        dom.btnEditToDoForm.classList.add('hidden');
-      }
-    });
+    // dom.btnEditToDoForm.addEventListener('click', function (e) {
+    //   e.preventDefault();
+    //   const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(
+    //     x => x.classList.contains('active')
+    //   );
+    //   console.log(e.currentTarget.form.title.value);
+    //   if (dom.btnEditToDoForm.form.checkValidity()) {
+    //     dom.main.innerHTML = '';
+    //     editToDoItem(e);
+    //     console.log(activeBtn.textContent);
+    //     dom.printSidebarLink(activeBtn.textContent);
+
+    //     dom.clearFormInputs(e);
+    //     dom.newToDoForm.classList.add('hidden');
+    //     // dom.btnAddToDoForm.classList.add('hidden');
+    //     dom.btnEditToDoForm.classList.add('hidden');
+    //   }
+    // });
 
     btnAddProjectForm.addEventListener('click', function (e) {
       e.preventDefault();

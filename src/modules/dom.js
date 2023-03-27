@@ -56,6 +56,22 @@ const dom = (() => {
 
     btnCompleteContainer.appendChild(btnComplete);
 
+    const btnEdit = document.createElement('button');
+    btnEdit.classList.add('btn-edit');
+    btnEdit.textContent = 'edit';
+    btnEdit.addEventListener('click', function () {
+      toggleModal('btn-add-todo');
+      const title = document.querySelector('#title-form');
+      const desc = document.querySelector('#desc');
+      const dueDate = document.querySelector('#due-date');
+      const priority = document.querySelector('#priority');
+      console.log(title);
+      title.value = item.title;
+      desc.value = item.desc;
+      dueDate.value = item.dueDate;
+      priority.value = item.priority;
+    });
+
     const btnDelete = document.createElement('button');
     btnDelete.classList.add('btn-delete');
     btnDelete.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 3 16 18"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>`;
@@ -70,6 +86,7 @@ const dom = (() => {
     toDoItem.appendChild(desc);
     toDoItem.appendChild(dueDate);
     toDoItem.appendChild(priority);
+    toDoItem.appendChild(btnEdit);
     toDoItem.appendChild(btnDelete);
     toDoItem.appendChild(lastNode);
 
@@ -101,11 +118,11 @@ const dom = (() => {
   }
 
   function toggleModal(e) {
-    if (e.target.classList.value === 'add-project') {
+    if (e.target?.classList.value === 'add-project') {
       newProjectForm.classList.toggle('hidden');
       newToDoForm.classList.add('hidden');
     }
-    if (e.target.classList.value === 'btn-add-todo') {
+    if (e.target?.classList.value === 'btn-add-todo' || e === 'btn-add-todo') {
       newToDoForm.classList.toggle('hidden');
       newProjectForm.classList.add('hidden');
     }

@@ -42,9 +42,14 @@ const dom = (() => {
     priority.classList.add('priority');
     priority.textContent = `${item.priority || ''}`;
 
+    const btnCompleteContainer = document.createElement('div');
+    btnCompleteContainer.classList.add('btn-complete-container');
+
     const btnComplete = document.createElement('button');
     btnComplete.classList.add('btn-complete');
     btnComplete.setAttribute('complete', `${item.complete ? 'true' : 'false'}`);
+
+    btnCompleteContainer.appendChild(btnComplete);
 
     const btnDelete = document.createElement('button');
     btnDelete.classList.add('btn-delete');
@@ -54,7 +59,7 @@ const dom = (() => {
     lastNode.textContent = item.project;
     lastNode.classList.add('hidden');
 
-    toDoItem.appendChild(btnComplete);
+    toDoItem.appendChild(btnCompleteContainer);
     toDoItem.appendChild(title);
     toDoItem.appendChild(desc);
     toDoItem.appendChild(dueDate);

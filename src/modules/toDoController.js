@@ -43,17 +43,20 @@ function getToDoItems() {
 }
 
 function editCompleteStatus(e) {
+  console.log(e.currentTarget.parentNode.parentNode.lastChild.textContent);
   const projectDeserialized = JSON.parse(
-    localStorage.getItem(e.currentTarget.parentNode.lastChild.textContent)
+    localStorage.getItem(
+      e.currentTarget.parentNode.parentNode.lastChild.textContent
+    )
   );
   for (const item of Object.values(projectDeserialized)) {
-    if (item.title === e.currentTarget.nextSibling.textContent) {
+    if (item.title === e.currentTarget.parentNode.nextSibling.textContent) {
       item.complete
         ? (e.currentTarget.attributes.complete.value = 'false')
         : (e.currentTarget.attributes.complete.value = 'true');
       item.complete = !item.complete;
       localStorage.setItem(
-        e.currentTarget.parentNode.lastChild.textContent,
+        e.currentTarget.parentNode.parentNode.lastChild.textContent,
         JSON.stringify(projectDeserialized)
       );
     }

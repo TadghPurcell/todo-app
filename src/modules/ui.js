@@ -58,7 +58,10 @@ const userInterface = (() => {
         `${activeBtn.textContent}`
       );
 
-      if (btnAddToDoForm.form.checkValidity()) {
+      if (
+        btnAddToDoForm.form.checkValidity() &&
+        dom.btnEditToDoForm.classList.contains('hidden')
+      ) {
         dom.main.innerHTML = '';
         console.log(activeBtn.textContent);
         addToDoItem(activeBtn.textContent, newItem);
@@ -77,7 +80,10 @@ const userInterface = (() => {
         x => x.classList.contains('active')
       );
       console.log(e.currentTarget.form.title.value);
-      if (dom.btnEditToDoForm.form.checkValidity()) {
+      if (
+        dom.btnEditToDoForm.form.checkValidity() &&
+        btnAddToDoForm.classList.contains('hidden')
+      ) {
         dom.main.innerHTML = '';
         editToDoItem(e);
         console.log(activeBtn.textContent);

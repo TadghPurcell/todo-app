@@ -45,6 +45,14 @@ svg {
   background-repeat: no-repeat;
 }
 
-.btn-complete > svg {
-  fill: #adff2f;
+.btn-complete-container[priority='high'] {
+  border-color: red;
+}
+
+.btn-complete-container[priority='medium'] {
+  border-color: yellow;
+}
+
+.btn-complete-container[priority='low'] {
+  border-color: greenyellow;
 }

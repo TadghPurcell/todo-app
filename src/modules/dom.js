@@ -28,7 +28,6 @@ const dom = (() => {
   function printToDoItem(item) {
     const toDoItem = document.createElement('div');
     toDoItem.classList.add(`main__item`);
-    toDoItem.setAttribute('data-index', `${item.index}`);
 
     const title = document.createElement('h3');
     title.classList.add('title');
@@ -48,6 +47,7 @@ const dom = (() => {
 
     const btnCompleteContainer = document.createElement('div');
     btnCompleteContainer.classList.add('btn-complete-container');
+    btnCompleteContainer.setAttribute('priority', item.priority);
 
     const btnComplete = document.createElement('button');
     btnComplete.classList.add('btn-complete');

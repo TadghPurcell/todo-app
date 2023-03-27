@@ -77,6 +77,12 @@ const dom = (() => {
   }
 
   function printProject(e) {
+    const btnAddToDoMain = document.createElement('button');
+    btnAddToDoMain.classList.add('btn-add-todo');
+    btnAddToDoMain.textContent = 'add to do';
+    main.appendChild(btnAddToDoMain);
+    btnAddToDoMain.addEventListener('click', toggleModal);
+
     let project;
     const sortedArray = [];
     if (JSON.parse(localStorage.getItem(e))) {

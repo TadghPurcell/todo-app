@@ -14,14 +14,10 @@ const userInterface = (() => {
   const priority = document.querySelector('#priority');
   //buttons
   const btnAddProject = document.querySelector('.add-project');
-  const btnAddToDoSidebar = document.querySelector('.btn-add-todo');
   const btnAddToDoForm = document.querySelector('.new-todo');
   const btnResetProject = document.querySelector('.btn-reset-project');
   const btnResetToDoForm = document.querySelector('.btn-reset-form');
-  // const btnAll = document.querySelector('.btn--all');
-  // const btnToday = document.querySelector('.btn--today');
-  // const btnThisWeek = document.querySelector('.btn--this-week');
-  // const btnImportant = document.querySelector('.btn--important');
+
   const btnCreateProject = document.querySelector('.btn-create-project');
 
   function addSidebarEventListeners(e) {
@@ -37,8 +33,6 @@ const userInterface = (() => {
 
   function addEventListeners() {
     const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
-    const allCompleteBtns = [...document.querySelectorAll('.btn-complete')];
-    const allDeleteBtns = [...document.querySelectorAll('.btn-delete')];
 
     btnAddProject.addEventListener('click', dom.toggleModal);
     btnResetProject.addEventListener('click', dom.clearFormInputs);
@@ -70,12 +64,7 @@ const userInterface = (() => {
       }
     });
 
-    btnAddToDoSidebar.addEventListener('click', dom.toggleModal);
-
     btnCreateProject.addEventListener('click', function (e) {
-      // function setActiveProject(e) {
-      //   e.target.classList.add('active');
-      // }
       e.preventDefault();
       console.log(btnCreateProject.form.checkValidity());
       if (btnCreateProject.form.checkValidity()) {
@@ -87,20 +76,6 @@ const userInterface = (() => {
         addSidebarEventListeners(allSidebarBtns);
       }
     });
-
-    allCompleteBtns.forEach(btn =>
-      btn.addEventListener('click', editCompleteStatus)
-    );
-
-    allDeleteBtns.forEach(btn =>
-      btn.addEventListener('click', function (e) {
-        console.log(e.currentTarget.parentNode.lastChild.textContent);
-        console.log(e.currentTarget);
-        deleteToDoItem(e);
-        console.log(activeBtn.textContent);
-        dom.printSidebarLink(activeBtn.textContent);
-      })
-    );
   }
 
   function init() {
@@ -108,27 +83,7 @@ const userInterface = (() => {
     dom.printSidebarLink('all');
 
     const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
-    const allCompleteBtns = [...document.querySelectorAll('.btn-complete')];
-    const allDeleteBtns = [...document.querySelectorAll('.btn-delete')];
-    const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(x =>
-      x.classList.contains('active')
-    );
 
-    allCompleteBtns.forEach(btn =>
-      btn.addEventListener('click', editCompleteStatus)
-    );
-
-    allDeleteBtns.forEach(btn =>
-      btn.addEventListener('click', function (e) {
-        console.log(e.currentTarget.parentNode.lastChild.textContent);
-        console.log(e.currentTarget);
-        deleteToDoItem(e);
-        console.log(activeBtn.textContent);
-        dom.printSidebarLink(activeBtn.textContent);
-      })
-    );
-
-    // console.log(allProjectBtns);
     addSidebarEventListeners(allSidebarBtns);
   }
 

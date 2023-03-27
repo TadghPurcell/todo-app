@@ -1,5 +1,6 @@
 import dom from './dom';
 let toDoItems = [];
+let currentItem = [];
 
 class MakeToDoItem {
   constructor(title = 'test', desc = 'test', dueDate, priority, project) {
@@ -9,7 +10,6 @@ class MakeToDoItem {
     this.priority = priority;
     this.project = project;
     this.dateCreated = +new Date();
-    this.index;
     this.complete = false;
   }
 }
@@ -92,22 +92,46 @@ function deleteToDoItem(e) {
 
   return getToDoItems();
 }
-function editToDoItem(e) {
-  console.log(e.currentTarget.parentNode.lastChild.textContent);
-  const projectDeserialized = JSON.parse(
-    localStorage.getItem(e.currentTarget.parentNode.lastChild.textContent)
-  );
+
+function getCurrentlyEditedItem(title, project) {
+  currentItem = [];
+  const projectDeserialized = JSON.parse(localStorage.getItem(project));
   for (const item of Object.values(projectDeserialized)) {
-    if (item.title === e.currentTarget.parentNode.childNodes[1].textContent) {
+    if (item.title === title) {
       for (const property of Object.values(projectDeserialized[item.title]))
-        console.log(property);
-      // projectDeserialized[item.title];
+        currentItem.push(property);
     }
   }
+  console.log(currentItem);
+  return currentItem;
+}
+
+function editToDoItem(e) {
+  console.log(currentItem);
+  console.log(currentItem[4]);
+  console.log(currentItem[1]);
+  const projectDeserialized = JSON.parse(localStorage.getItem(currentItem[4]));
+  for (const item of Object.values(projectDeserialized)) {
+    if (item.title === currentItem[0]) {
+      delete projectDeserialized[item.title];
+      projectDeserialized[e.currentTarget.form.title.value] = {
+        title: e.currentTarget.form.title.value,
+        desc: e.currentTarget.form.desc.value,
+        dueDate: e.currentTarget.form['due-date'].value,
+        priority: e.currentTarget.form.priority.value,
+        project: currentItem[4],
+        dateCreated: currentItem[5],
+        complete: false,
+      };
+      localStorage.setItem(currentItem[4], JSON.stringify(projectDeserialized));
+    }
+  }
+  console.log(localStorage[currentItem[4]]);
 }
 
 export {
   createNewToDoItem,
+  getCurrentlyEditedItem,
   addToDoItem,
   addProject,
   getToDoItems,

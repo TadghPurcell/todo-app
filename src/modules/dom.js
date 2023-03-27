@@ -2,7 +2,7 @@ import {
   deleteToDoItem,
   getToDoItems,
   editCompleteStatus,
-  editToDoItem,
+  getCurrentlyEditedItem,
 } from './toDoController';
 import { isToday, isThisWeek, parseISO } from 'date-fns';
 
@@ -15,12 +15,15 @@ const dom = (() => {
 
   const newProjectForm = document.querySelector('.new-project-form');
   const newToDoForm = document.querySelector('.new-todo-form');
-  const btnAdd = document.querySelector('.btn-add-form');
-  const btnEditForm = document.querySelector('.btn-edit-form');
+  const btnAddToDoForm = document.querySelector('.new-todo');
+  const btnEditToDoForm = document.querySelector('.edit-todo');
+  const btnAddProjectForm = document.querySelector('.new-project');
+  const btnEditProjectForm = document.querySelector('.edit-project');
 
   function clearFormInputs(e) {
     e.preventDefault();
-    if (e.target.form.length > 3) {
+    console.log(e.target.form.length);
+    if (e.target.form.length > 4) {
       e.target.form.title.value = '';
       e.target.form.desc.value = '';
       e.target.form['due-date'].value = '';
@@ -68,8 +71,11 @@ const dom = (() => {
       const desc = document.querySelector('#desc');
       const dueDate = document.querySelector('#due-date');
       const priority = document.querySelector('#priority');
-      btnEditForm.classList.remove('hidden');
-      console.log(title);
+      const today = new Date().toISOString().split('T')[0];
+
+      dueDate.setAttribute('min', today);
+      getCurrentlyEditedItem(item.title, item.project);
+      btnEditToDoForm.classList.remove('hidden');
       title.value = item.title;
       desc.value = item.desc;
       dueDate.value = item.dueDate;
@@ -104,7 +110,7 @@ const dom = (() => {
     main.appendChild(btnAddToDoMain);
     btnAddToDoMain.addEventListener('click', function (e) {
       toggleModal(e);
-      btnAdd.classList.remove('hidden');
+      btnAddToDoForm.classList.remove('hidden');
       const title = document.querySelector('#title-form');
       const desc = document.querySelector('#desc');
       const dueDate = document.querySelector('#due-date');
@@ -132,7 +138,7 @@ const dom = (() => {
   }
 
   function toggleModal(e) {
-    if (e.target?.classList.value === 'add-project') {
+    if (e.target?.classList.value === 'add-project' || e === 'add-project') {
       newProjectForm.classList.toggle('hidden');
       newToDoForm.classList.add('hidden');
     }
@@ -143,6 +149,7 @@ const dom = (() => {
   }
 
   function printAll() {
+    console.log(getToDoItems());
     getToDoItems().forEach(item => main.appendChild(printToDoItem(item)));
   }
 
@@ -171,16 +178,37 @@ const dom = (() => {
   }
 
   function printProjectButtonsSidebar() {
-    let index = 0;
-
     for (const key of Object.keys(localStorage)
       .map(x => x.toLowerCase())
       .sort()) {
+      const projectBtnDiv = document.createElement('div');
       const projectBtn = document.createElement('button');
       projectBtn.classList.add('sidebar__btn', `project__${key}`);
       projectBtn.textContent = key;
-      index++;
-      sidebarProjectSection.appendChild(projectBtn);
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.classList.add('btn-delete-project');
+      deleteBtn.textContent = 'delete';
+      deleteBtn.addEventListener('click', function () {
+        console.log('hey');
+      });
+
+      const editBtn = document.createElement('button');
+      editBtn.classList.add('btn-edit-project');
+      editBtn.textContent = 'edit';
+      editBtn.addEventListener('click', function (e) {
+        toggleModal('add-project');
+        btnEditProjectForm.classList.remove('hidden');
+        const title = document.querySelector('#title-project');
+        console.log(e.currentTarget.parentNode.firstChild.textContent);
+        title.value = e.currentTarget.parentNode.firstChild.textContent;
+      });
+
+      projectBtnDiv.appendChild(projectBtn);
+      projectBtnDiv.appendChild(editBtn);
+      projectBtnDiv.appendChild(deleteBtn);
+
+      sidebarProjectSection.appendChild(projectBtnDiv);
     }
   }
 
@@ -197,8 +225,8 @@ const dom = (() => {
   return {
     main,
     clearFormInputs,
-    btnAdd,
-    btnEditForm,
+    btnAddToDoForm,
+    btnEditToDoForm,
     toggleModal,
     sidebarProjectSection,
     printProjectButtonsSidebar,
@@ -206,6 +234,8 @@ const dom = (() => {
     newToDoForm,
     printProject,
     printSidebarLink,
+    btnAddProjectForm,
+    btnEditProjectForm,
   };
 })();
 

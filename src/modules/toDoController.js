@@ -1,6 +1,8 @@
 import dom from './dom';
 let toDoItems = [];
 let currentItem = [];
+let currentProject;
+let currentProjectName;
 
 class MakeToDoItem {
   constructor(title = 'test', desc = 'test', dueDate, priority, project) {
@@ -129,6 +131,20 @@ function editToDoItem(e) {
   console.log(localStorage[currentItem[4]]);
 }
 
+function getCurrentlyEditedProject(e) {
+  currentProject = {};
+  currentProjectName = '';
+
+  currentProjectName = e;
+  currentProject = JSON.parse(localStorage.getItem(e));
+}
+
+function editProject(e) {
+  console.log(currentProjectName);
+  localStorage.removeItem(currentProjectName);
+  localStorage.setItem(e, JSON.stringify(currentProject));
+}
+
 export {
   createNewToDoItem,
   getCurrentlyEditedItem,
@@ -138,4 +154,6 @@ export {
   editCompleteStatus,
   deleteToDoItem,
   editToDoItem,
+  getCurrentlyEditedProject,
+  editProject,
 };

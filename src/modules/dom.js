@@ -3,6 +3,7 @@ import {
   getToDoItems,
   editCompleteStatus,
   getCurrentlyEditedItem,
+  getCurrentlyEditedProject,
 } from './toDoController';
 import { isToday, isThisWeek, parseISO } from 'date-fns';
 
@@ -197,6 +198,9 @@ const dom = (() => {
       editBtn.classList.add('btn-edit-project');
       editBtn.textContent = 'edit';
       editBtn.addEventListener('click', function (e) {
+        getCurrentlyEditedProject(
+          e.currentTarget.parentNode.firstChild.textContent
+        );
         toggleModal('add-project');
         btnEditProjectForm.classList.remove('hidden');
         const title = document.querySelector('#title-project');

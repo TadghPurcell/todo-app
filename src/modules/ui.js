@@ -4,6 +4,7 @@ import {
   addToDoItem,
   addProject,
   editToDoItem,
+  editProject,
 } from './toDoController';
 
 const userInterface = (() => {
@@ -15,7 +16,6 @@ const userInterface = (() => {
   const btnAddProject = document.querySelector('.add-project');
   const btnAddToDoForm = document.querySelector('.new-todo');
   const btnAddProjectForm = document.querySelector('.new-project');
-  const btnEditProjectForm = document.querySelector('.edit-project');
 
   const btnResetProject = document.querySelector('.btn-reset-project');
   const btnResetToDoForm = document.querySelector('.btn-reset-form');
@@ -76,7 +76,7 @@ const userInterface = (() => {
         x => x.classList.contains('active')
       );
       console.log(e.currentTarget.form.title.value);
-      if (btnAddToDoForm.form.checkValidity()) {
+      if (dom.btnEditToDoForm.form.checkValidity()) {
         dom.main.innerHTML = '';
         editToDoItem(e);
         console.log(activeBtn.textContent);
@@ -84,8 +84,24 @@ const userInterface = (() => {
 
         dom.clearFormInputs(e);
         dom.newToDoForm.classList.add('hidden');
-        dom.btnAdd.classList.add('hidden');
+        dom.btnAddToDoForm.classList.add('hidden');
         dom.btnEditToDoForm.classList.add('hidden');
+      }
+    });
+
+    dom.btnEditProjectForm.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (dom.btnEditProjectForm.form.checkValidity()) {
+        console.log(e.currentTarget.form.title.value);
+        dom.main.innerHTML = '';
+        editProject(e.currentTarget.form.title.value);
+        dom.printSidebarLink(e.currentTarget.form.title.value);
+        dom.sidebarProjectSection.innerHTML = '';
+        dom.printProjectButtonsSidebar();
+
+        dom.newProjectForm.classList.add('hidden');
+        dom.btnAddProjectForm.classList.add('hidden');
+        dom.btnEditProjectForm.classList.add('hidden');
       }
     });
 

@@ -18,7 +18,7 @@ const userInterface = (() => {
   const btnAddProjectForm = document.querySelector('.new-project');
 
   const btnResetProject = document.querySelector('.btn-reset-project');
-  const btnResetToDoForm = document.querySelector('.btn-reset-form');
+  // const btnResetToDoForm = document.querySelector('.btn-reset-form');
 
   function addSidebarEventListeners(e) {
     e.forEach(btn => {
@@ -40,7 +40,7 @@ const userInterface = (() => {
       btnAddProjectForm.classList.remove('hidden');
     });
     btnResetProject.addEventListener('click', dom.clearFormInputs);
-    btnResetToDoForm.addEventListener('click', dom.clearFormInputs);
+    // btnResetToDoForm.addEventListener('click', dom.clearFormInputs);
 
     // btnAddToDoForm.addEventListener('click', function (e) {
 

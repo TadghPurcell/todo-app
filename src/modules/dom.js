@@ -20,6 +20,7 @@ const dom = (() => {
     '.sidebar__projects--container'
   );
 
+  const overlay = document.querySelector('.overlay');
   const newProjectForm = document.querySelector('.new-project-form');
   const newToDoForm = document.querySelector('.new-todo-form');
   const newToDoFormButtonContainer = document.querySelector(
@@ -30,9 +31,14 @@ const dom = (() => {
   const btnAddProjectForm = document.querySelector('.new-project');
   const btnEditProjectForm = document.querySelector('.edit-project');
 
-  function removeFirstButton(e) {
-    console.log(e.currentTarget.parentNode);
-  }
+  overlay.addEventListener('click', function (e) {
+    overlay.classList.add('hidden');
+    newToDoForm.classList.add('hidden');
+    newProjectForm.classList.add('hidden');
+    // clearFormInputs(e);
+    newToDoFormButtonContainer.innerHTML = '';
+  });
+
   function printAddToDoButtonForm() {
     const btnAddToDoForm = document.createElement('button');
     btnAddToDoForm.classList.add('btn', 'btn-add-form', 'new-todo');
@@ -61,6 +67,10 @@ const dom = (() => {
         printSidebarLink(activeBtn.textContent);
 
         clearFormInputs(e);
+        newToDoFormButtonContainer.removeChild(
+          document.querySelector('.btn-clear-form')
+        );
+        overlay.classList.add('hidden');
         newToDoForm.classList.add('hidden');
         // btnAddToDoForm.parentNode.removeChild(btnAddToDoForm);
         // btnAddToDoForm.classList.add('hidden');
@@ -73,10 +83,11 @@ const dom = (() => {
 
   function printEditButtonToDoForm() {
     const btnEditToDoForm = document.createElement('button');
-    btnEditToDoForm.classList.add('btn', 'btn-edit-form', 'new-todo');
+    btnEditToDoForm.classList.add('btn', 'btn-edit-form', 'edit-todo');
     btnEditToDoForm.textContent = 'Edit';
     btnEditToDoForm.addEventListener('click', function (e) {
       e.preventDefault();
+      overlay.classList.add('hidden');
       const activeBtn = [...document.querySelectorAll('.sidebar__btn')].find(
         x => x.classList.contains('active')
       );
@@ -86,8 +97,11 @@ const dom = (() => {
         editToDoItem(e);
         console.log(activeBtn.textContent);
         printSidebarLink(activeBtn.textContent);
-
         clearFormInputs(e);
+        newToDoFormButtonContainer.removeChild(
+          document.querySelector('.btn-clear-form')
+        );
+        overlay.classList.add('hidden');
         newToDoForm.classList.add('hidden');
         // dom.btnAddToDoForm.classList.add('hidden');
         // dom.btnEditToDoForm.classList.add('hidden');
@@ -97,8 +111,12 @@ const dom = (() => {
   }
 
   function printFormBtn(e) {
-    if (e === 'Add') return printAddToDoButtonForm();
-    if (e === 'Edit') return printEditButtonToDoForm();
+    console.log(e.classList);
+    console.log(e.textContent);
+    if (e?.textContent === 'Add' && e.classList.contains('new-todo'))
+      return printAddToDoButtonForm();
+    if (e?.textContent === 'Edit' && e.classList.contains('edit-todo'))
+      return printEditButtonToDoForm();
   }
 
   function printClearBtn() {
@@ -119,7 +137,7 @@ const dom = (() => {
       e.target.form['due-date'].value = '';
       e.target.form.priority.value = '';
     } else e.target.form.title.value = '';
-    const newBtn = e.currentTarget.previousElementSibling?.textContent;
+    const newBtn = e.currentTarget.previousElementSibling;
     console.log(newBtn);
     newToDoFormButtonContainer.innerHTML = '';
     newBtn && newToDoFormButtonContainer.appendChild(printFormBtn(newBtn));
@@ -161,13 +179,12 @@ const dom = (() => {
     btnEdit.classList.add('btn-edit');
     btnEdit.textContent = 'edit';
     btnEdit.addEventListener('click', function (e) {
-      removeFirstButton(e);
+      overlay.classList.remove('hidden');
       // console.log(printEditButtonToDoForm(e));
-      if (newToDoFormButtonContainer.firstElementChild.textContent !== 'Edit')
-        newToDoFormButtonContainer.insertBefore(
-          printEditButtonToDoForm(e),
-          newToDoFormButtonContainer.firstChild
-        );
+      if (newToDoFormButtonContainer.firstElementChild?.textContent !== 'Edit')
+        newToDoFormButtonContainer.appendChild(printEditButtonToDoForm(e));
+      newToDoFormButtonContainer.appendChild(printClearBtn());
+
       toggleModal('btn-add-todo');
       const title = document.querySelector('#title-form');
       const desc = document.querySelector('#desc');
@@ -212,12 +229,18 @@ const dom = (() => {
     btnAddToDoMain.textContent = 'add to do';
     main.appendChild(btnAddToDoMain);
     btnAddToDoMain.addEventListener('click', function (e) {
+      overlay.classList.remove('hidden');
       toggleModal(e);
-      if (newToDoFormButtonContainer.firstElementChild.textContent !== 'Add')
-        newToDoFormButtonContainer.insertBefore(
-          printAddToDoButtonForm(),
-          newToDoFormButtonContainer.firstChild
-        );
+      if (newToDoFormButtonContainer.firstElementChild?.textContent !== 'Add')
+        newToDoFormButtonContainer.appendChild(printAddToDoButtonForm());
+      // newToDoFormButtonContainer.insertBefore(
+      //   printAddToDoButtonForm(),
+      //   newToDoFormButtonContainer.firstChild
+      // );
+      // newToDoFormButtonContainer.appendChild(printAddToDoButtonForm());
+      // console.log(newToDoFormButtonContainer.firstElementChild);
+      // if (newToDoFormButtonContainer.lastElementChild?.textContent !== 'Clear')
+      newToDoFormButtonContainer.appendChild(printClearBtn());
       // console.log(newToDoFormButtonContainer.firstElementChild.textContent);
       // newToDoFormButtonContainer.insertBefore(
       //   printAddButtonForm(),

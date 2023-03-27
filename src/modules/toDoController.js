@@ -84,6 +84,8 @@ function deleteToDoItem(e) {
       );
     }
   }
+  dom.main.innerHTML = '';
+  dom.printSidebarLink(document.querySelector('.active').textContent);
   console.log(
     localStorage[e.target.parentNode.parentNode.lastChild.textContent]
   );

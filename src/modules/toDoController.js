@@ -48,13 +48,10 @@ function editCompleteStatus(e) {
   );
   for (const item of Object.values(projectDeserialized)) {
     if (item.title === e.currentTarget.nextSibling.textContent) {
-      item.complete = !item.complete;
       item.complete
         ? (e.currentTarget.attributes.complete.value = 'false')
         : (e.currentTarget.attributes.complete.value = 'true');
-      item.complete
-        ? (e.currentTarget.textContent = 'complete')
-        : (e.currentTarget.textContent = 'not complete');
+      item.complete = !item.complete;
       localStorage.setItem(
         e.currentTarget.parentNode.lastChild.textContent,
         JSON.stringify(projectDeserialized)

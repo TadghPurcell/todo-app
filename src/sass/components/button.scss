@@ -19,8 +19,20 @@ svg {
 }
 
 .btn-complete {
-  height: 10px;
-  width: 100px;
+  height: 50px;
+  width: 50px;
   background-color: inherit;
   border: none;
+}
+
+.btn-complete[complete='false'] {
+  background-image: url('../img/circleOutline.svg');
+}
+
+.btn-complete[complete='true'] {
+  background-image: url('../img/checkCircleOutline.svg');
+}
+
+.btn-complete > svg {
+  fill: #adff2f;
 }

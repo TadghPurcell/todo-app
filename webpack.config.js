@@ -10,6 +10,7 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
+    assetModuleFilename: 'img/[name][ext]',
   },
   module: {
     rules: [
@@ -19,9 +20,7 @@ module.exports = {
       },
       {
         test: /\.(woff|woff2|eot|ttf|svg|jpg|png)$/,
-        use: {
-          loader: 'url-loader',
-        },
+        type: 'asset/resource',
       },
     ],
   },

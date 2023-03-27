@@ -141,6 +141,7 @@ function getCurrentlyEditedProject(e) {
 
 function editProject(e) {
   console.log(currentProjectName);
+  console.log(e);
   localStorage.removeItem(currentProjectName);
   localStorage.setItem(e, JSON.stringify(currentProject));
 }

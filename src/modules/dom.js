@@ -184,8 +184,15 @@ const dom = (() => {
       .sort()) {
       const projectBtnDiv = document.createElement('div');
       const projectBtn = document.createElement('button');
-      projectBtn.classList.add('sidebar__btn', `project__${key}`);
+      projectBtn.classList.add('sidebar__btn');
       projectBtn.textContent = key;
+      projectBtn.addEventListener('click', function (e) {
+        const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
+        allSidebarBtns.forEach(btn => btn.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+        main.innerHTML = '';
+        printSidebarLink(e.currentTarget.textContent);
+      });
 
       const deleteBtn = document.createElement('button');
       deleteBtn.classList.add('btn-delete-project');
@@ -202,6 +209,7 @@ const dom = (() => {
           e.currentTarget.parentNode.firstChild.textContent
         );
         toggleModal('add-project');
+        btnAddProjectForm.classList.add('hidden');
         btnEditProjectForm.classList.remove('hidden');
         const title = document.querySelector('#title-project');
         console.log(e.currentTarget.parentNode.firstChild.textContent);

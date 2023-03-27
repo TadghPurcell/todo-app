@@ -36,6 +36,7 @@ const userInterface = (() => {
 
     btnAddProject.addEventListener('click', function (e) {
       dom.toggleModal(e);
+      dom.btnEditProjectForm.classList.add('hidden');
       btnAddProjectForm.classList.remove('hidden');
     });
     btnResetProject.addEventListener('click', dom.clearFormInputs);
@@ -89,26 +90,12 @@ const userInterface = (() => {
       }
     });
 
-    dom.btnEditProjectForm.addEventListener('click', function (e) {
-      e.preventDefault();
-      if (dom.btnEditProjectForm.form.checkValidity()) {
-        console.log(e.currentTarget.form.title.value);
-        dom.main.innerHTML = '';
-        editProject(e.currentTarget.form.title.value);
-        dom.printSidebarLink(e.currentTarget.form.title.value);
-        dom.sidebarProjectSection.innerHTML = '';
-        dom.printProjectButtonsSidebar();
-
-        dom.newProjectForm.classList.add('hidden');
-        dom.btnAddProjectForm.classList.add('hidden');
-        dom.btnEditProjectForm.classList.add('hidden');
-      }
-    });
-
     btnAddProjectForm.addEventListener('click', function (e) {
       e.preventDefault();
-      console.log(btnAddProjectForm.form.checkValidity());
-      if (btnAddProjectForm.form.checkValidity()) {
+      if (
+        btnAddProjectForm.form.checkValidity() &&
+        dom.btnEditProjectForm.classList.contains('hidden')
+      ) {
         addProject(e.target.form.title.value);
         dom.clearFormInputs(e);
         dom.sidebarProjectSection.innerHTML = '';
@@ -118,6 +105,25 @@ const userInterface = (() => {
       }
     });
   }
+
+  dom.btnEditProjectForm.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (
+      dom.btnEditProjectForm.form.checkValidity() &&
+      btnAddProjectForm.classList.contains('hidden')
+    ) {
+      dom.main.innerHTML = '';
+      editProject(e.currentTarget.form.title.value);
+      dom.printSidebarLink(e.currentTarget.form.title.value);
+      dom.sidebarProjectSection.innerHTML = '';
+      dom.printProjectButtonsSidebar();
+      dom.clearFormInputs(e);
+
+      dom.newProjectForm.classList.add('hidden');
+      dom.btnAddProjectForm.classList.add('hidden');
+      dom.btnEditProjectForm.classList.add('hidden');
+    }
+  });
 
   function init() {
     dom.printProjectButtonsSidebar();

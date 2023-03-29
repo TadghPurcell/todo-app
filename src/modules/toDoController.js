@@ -46,7 +46,6 @@ function getToDoItems() {
 }
 
 function editCompleteStatus(e) {
-  console.log(e.currentTarget.parentNode.parentNode.lastChild.textContent);
   const projectDeserialized = JSON.parse(
     localStorage.getItem(
       e.currentTarget.parentNode.parentNode.lastChild.textContent

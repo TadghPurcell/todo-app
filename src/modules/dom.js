@@ -237,8 +237,7 @@ const dom = (() => {
     btnEdit.textContent = 'edit';
     btnEdit.addEventListener('click', function (e) {
       overlay.classList.remove('hidden');
-      console.log(item);
-      console.log(item.project);
+
       if (newToDoFormButtonContainer.firstElementChild?.textContent !== 'Edit')
         newToDoFormButtonContainer.appendChild(printEditButtonToDoForm(e));
       newToDoFormButtonContainer.appendChild(printClearBtn());
@@ -395,7 +394,6 @@ const dom = (() => {
       deleteBtn.textContent = 'delete';
 
       deleteBtn.addEventListener('click', function (e) {
-        overlay.classList.remove('hidden');
         deleteProject(e);
 
         main.innerHTML = '';

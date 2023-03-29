@@ -112,7 +112,6 @@ const dom = (() => {
     btnAdd.textContent = 'Add';
 
     btnAdd.addEventListener('click', function (e) {
-      const allSidebarBtns = [...document.querySelectorAll('.sidebar__btn')];
       e.preventDefault();
 
       if (btnAdd.form.checkValidity()) {
@@ -130,15 +129,6 @@ const dom = (() => {
 
         overlay.classList.add('hidden');
         newProjectForm.classList.add('hidden');
-
-        allSidebarBtns.forEach(btn => {
-          btn.addEventListener('click', function () {
-            e.forEach(btn => btn.classList.remove('active'));
-            btn.classList.add('active');
-            dom.main.innerHTML = '';
-            dom.printSidebarLink(btn.textContent);
-          });
-        });
       }
     });
     return btnAdd;
@@ -247,7 +237,8 @@ const dom = (() => {
     btnEdit.textContent = 'edit';
     btnEdit.addEventListener('click', function (e) {
       overlay.classList.remove('hidden');
-
+      console.log(item);
+      console.log(item.project);
       if (newToDoFormButtonContainer.firstElementChild?.textContent !== 'Edit')
         newToDoFormButtonContainer.appendChild(printEditButtonToDoForm(e));
       newToDoFormButtonContainer.appendChild(printClearBtn());

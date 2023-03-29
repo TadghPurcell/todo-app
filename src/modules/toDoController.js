@@ -16,23 +16,22 @@ class MakeToDoItem {
   }
 }
 
+function createNewToDoItem(a, b, c, d, e) {
+  return new MakeToDoItem(a, b, c, d, e);
+}
+
 function addProject(project) {
   localStorage.setItem(project.toLowerCase(), JSON.stringify({}));
 }
 
 function addToDoItem(project, toDoItem) {
-  console.log(localStorage.getItem(project));
-  console.log(project);
   const updatedProject = JSON.parse(localStorage.getItem(project));
-  console.log(updatedProject);
-  updatedProject[toDoItem.title] = toDoItem;
-  console.log(JSON.stringify(updatedProject));
-  localStorage.setItem(project, JSON.stringify(updatedProject));
-  return updatedProject;
-}
 
-function createNewToDoItem(a, b, c, d, e) {
-  return new MakeToDoItem(a, b, c, d, e);
+  updatedProject[toDoItem.title] = toDoItem;
+
+  localStorage.setItem(project, JSON.stringify(updatedProject));
+
+  return updatedProject;
 }
 
 function getToDoItems() {
@@ -53,69 +52,49 @@ function editCompleteStatus(e) {
       e.currentTarget.parentNode.parentNode.lastChild.textContent
     )
   );
+
   for (const item of Object.values(projectDeserialized)) {
     if (item.title === e.currentTarget.parentNode.nextSibling.textContent) {
       item.complete
         ? (e.currentTarget.attributes.complete.value = 'false')
         : (e.currentTarget.attributes.complete.value = 'true');
+
       item.complete = !item.complete;
+
       localStorage.setItem(
         e.currentTarget.parentNode.parentNode.lastChild.textContent,
         JSON.stringify(projectDeserialized)
       );
     }
   }
+
   dom.main.innerHTML = '';
   dom.printSidebarLink(document.querySelector('.active').textContent);
-  console.log(localStorage[e.currentTarget.parentNode.lastChild.textContent]);
-
-  return getToDoItems();
-}
-
-function deleteToDoItem(e) {
-  console.log(e.currentTarget.parentNode.lastChild.textContent);
-  const projectDeserialized = JSON.parse(
-    localStorage.getItem(e.currentTarget.parentNode.lastChild.textContent)
-  );
-  for (const item of Object.values(projectDeserialized)) {
-    if (item.title === e.currentTarget.parentNode.childNodes[1].textContent) {
-      delete projectDeserialized[item.title];
-      localStorage.setItem(
-        e.currentTarget.parentNode.lastChild.textContent,
-        JSON.stringify(projectDeserialized)
-      );
-    }
-  }
-  dom.main.innerHTML = '';
-  dom.printSidebarLink(document.querySelector('.active').textContent);
-  console.log(
-    localStorage[e.target.parentNode.parentNode.lastChild.textContent]
-  );
 
   return getToDoItems();
 }
 
 function getCurrentlyEditedItem(title, project) {
   currentItem = [];
+
   const projectDeserialized = JSON.parse(localStorage.getItem(project));
+
   for (const item of Object.values(projectDeserialized)) {
     if (item.title === title) {
       for (const property of Object.values(projectDeserialized[item.title]))
         currentItem.push(property);
     }
   }
-  console.log(currentItem);
   return currentItem;
 }
 
 function editToDoItem(e) {
-  console.log(currentItem);
-  console.log(currentItem[4]);
-  console.log(currentItem[1]);
   const projectDeserialized = JSON.parse(localStorage.getItem(currentItem[4]));
+
   for (const item of Object.values(projectDeserialized)) {
     if (item.title === currentItem[0]) {
       delete projectDeserialized[item.title];
+
       projectDeserialized[e.currentTarget.form.title.value] = {
         title: e.currentTarget.form.title.value,
         desc: e.currentTarget.form.desc.value,
@@ -125,10 +104,32 @@ function editToDoItem(e) {
         dateCreated: currentItem[5],
         complete: false,
       };
+
       localStorage.setItem(currentItem[4], JSON.stringify(projectDeserialized));
     }
   }
-  console.log(localStorage[currentItem[4]]);
+}
+
+function deleteToDoItem(e) {
+  const projectDeserialized = JSON.parse(
+    localStorage.getItem(e.currentTarget.parentNode.lastChild.textContent)
+  );
+
+  for (const item of Object.values(projectDeserialized)) {
+    if (item.title === e.currentTarget.parentNode.childNodes[1].textContent) {
+      delete projectDeserialized[item.title];
+
+      localStorage.setItem(
+        e.currentTarget.parentNode.lastChild.textContent,
+        JSON.stringify(projectDeserialized)
+      );
+    }
+  }
+
+  dom.main.innerHTML = '';
+  dom.printSidebarLink(document.querySelector('.active').textContent);
+
+  return getToDoItems();
 }
 
 function getCurrentlyEditedProject(e) {
@@ -139,27 +140,24 @@ function getCurrentlyEditedProject(e) {
   currentProject = JSON.parse(localStorage.getItem(e));
 }
 
-function deleteProject(e) {
-  console.log(e.currentTarget.parentNode.firstChild.textContent);
-  localStorage.removeItem(e.currentTarget.parentNode.firstChild.textContent);
-}
-
 function editProject(e) {
-  console.log(currentProjectName);
-  console.log(e);
   localStorage.removeItem(currentProjectName);
   localStorage.setItem(e, JSON.stringify(currentProject));
 }
 
+function deleteProject(e) {
+  localStorage.removeItem(e.currentTarget.parentNode.firstChild.textContent);
+}
+
 export {
-  createNewToDoItem,
-  getCurrentlyEditedItem,
-  addToDoItem,
   addProject,
+  addToDoItem,
+  createNewToDoItem,
   getToDoItems,
   editCompleteStatus,
-  deleteToDoItem,
+  getCurrentlyEditedItem,
   editToDoItem,
+  deleteToDoItem,
   getCurrentlyEditedProject,
   editProject,
   deleteProject,

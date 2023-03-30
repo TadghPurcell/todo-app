@@ -64,9 +64,8 @@ const dom = (() => {
 
         clearFormInputs(e);
 
-        newToDoFormButtonContainer.removeChild(
-          document.querySelector('.btn-clear-form')
-        );
+        newToDoFormButtonContainer.innerHTML = '';
+
         overlay.classList.add('hidden');
         newToDoForm.classList.add('hidden');
       }
@@ -284,9 +283,7 @@ const dom = (() => {
     btnAddToDoMain.addEventListener('click', function (e) {
       overlay.classList.remove('hidden');
       toggleModal(e);
-      if (newToDoFormButtonContainer.firstElementChild?.textContent !== 'Add')
-        newToDoFormButtonContainer.appendChild(printAddToDoButtonForm());
-
+      newToDoFormButtonContainer.appendChild(printAddToDoButtonForm());
       newToDoFormButtonContainer.appendChild(printClearBtn());
 
       const title = document.querySelector('#title-form');

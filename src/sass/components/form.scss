@@ -8,6 +8,12 @@ input {
 }
 input {
   margin: 1px;
+  border: 1px solid #b2b2b2;
+  border-radius: 10px;
+}
+
+input:focus {
+  border: 1px solid var(--hover-link);
 }
 
 form {
@@ -42,4 +48,18 @@ form > * {
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3px);
   z-index: 1;
+}
+
+.new-todo-form__buttons,
+.new-project-form__buttons {
+  width: 125%;
+  flex-direction: row-reverse;
+  gap: 8px;
+  justify-content: flex-start;
+  padding: 10px;
+}
+
+.new-todo-form__buttons > button,
+.new-project-form__buttons > button {
+  padding: 5px;
 }

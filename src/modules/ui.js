@@ -17,8 +17,8 @@ const userInterface = (() => {
     btnAddProject.addEventListener('click', function (e) {
       dom.newProjectFormButtonContainer.append(dom.printAddButtonProjectForm());
       dom.newProjectFormButtonContainer.append(dom.printClearBtn());
-      dom.overlay.classList.remove('hidden');
       dom.toggleModal(e);
+      dom.overlay.classList.remove('hidden');
     });
   }
 

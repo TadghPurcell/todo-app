@@ -4,13 +4,21 @@
   box-sizing: inherit;
 }
 
+*:focus {
+  outline: none;
+}
+
 :root {
-  --dark-text: rgb(65, 69, 81);
-  --light-text: rgb(130, 132, 144);
-  --hover-link: rgb(45, 109, 212);
-  --background-col: rgb(246 247 251);
-  --sidebar-col: rgb(26, 26, 33);
-  --box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.075);
+  // --dark-text: rgb(65, 69, 81);
+  // --light-text: rgb(130, 132, 144);
+  --dark-text: #363740;
+  --light-text: #363740;
+  --hover-link: rgb(27 98 239);
+  --background-col: white;
+  --header-col: #363740;
+  --sidebar-col: rgb(235, 235, 235);
+  // --sidebar-col: rgb(229, 229, 229);
+  --box-shadow: 0px 1px 4px rgb(54, 55, 64, 0.33);
 }
 
 body {

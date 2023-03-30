@@ -29,9 +29,6 @@ const dom = (() => {
   const newProjectFormButtonContainer = document.querySelector(
     '.new-project-form__buttons'
   );
-  const btnEditToDoForm = document.querySelector('.edit-todo');
-  const btnAddProjectForm = document.querySelector('.new-project');
-  const btnEditProjectForm = document.querySelector('.edit-project');
 
   overlay.addEventListener('click', function () {
     overlay.classList.add('hidden');
@@ -57,7 +54,7 @@ const dom = (() => {
         `${e.target.form.desc.value}`,
         `${e.target.form['due-date'].value}`,
         `${e.target.form.priority.value}`,
-        `${activeBtn.textContent}`
+        `${document.querySelector('.project-name').textContent}`
       );
 
       if (btnAddToDoForm.form.checkValidity()) {
@@ -126,6 +123,8 @@ const dom = (() => {
         newProjectFormButtonContainer.removeChild(
           document.querySelector('.btn-clear-form')
         );
+        console.log(e);
+        // printProject(e.target.form['title-project'].value);
 
         overlay.classList.add('hidden');
         newProjectForm.classList.add('hidden');
@@ -165,14 +164,6 @@ const dom = (() => {
     return btnEdit;
   }
 
-  function printFormBtn(e) {
-    if (e?.textContent === 'Add' && e.classList.contains('new-todo'))
-      return printAddToDoButtonForm();
-
-    if (e?.textContent === 'Edit' && e.classList.contains('edit-todo'))
-      return printEditButtonToDoForm();
-  }
-
   function printClearBtn() {
     const clearBtn = document.createElement('button');
     clearBtn.classList.add('btn', 'btn-clear-form');
@@ -192,18 +183,12 @@ const dom = (() => {
       e.target.form['due-date'].value = '';
       e.target.form.priority.value = '';
     } else e.target.form.title.value = '';
-
-    const newBtn = e.currentTarget.previousElementSibling;
-
-    newToDoFormButtonContainer.innerHTML = '';
-
-    newBtn && newToDoFormButtonContainer.appendChild(printFormBtn(newBtn));
-    newToDoFormButtonContainer.appendChild(printClearBtn());
   }
 
   function printToDoItem(item) {
     const toDoItem = document.createElement('div');
     toDoItem.classList.add(`main__item`);
+    toDoItem.setAttribute('priority', item.priority);
 
     const title = document.createElement('h3');
     title.classList.add('title');
@@ -234,9 +219,9 @@ const dom = (() => {
 
     const btnEdit = document.createElement('button');
     btnEdit.classList.add('btn-edit');
-    btnEdit.textContent = 'edit';
     btnEdit.addEventListener('click', function (e) {
       overlay.classList.remove('hidden');
+      newToDoForm.classList.remove('hidden');
 
       if (newToDoFormButtonContainer.firstElementChild?.textContent !== 'Edit')
         newToDoFormButtonContainer.appendChild(printEditButtonToDoForm(e));
@@ -283,11 +268,20 @@ const dom = (() => {
   }
 
   function printProject(e) {
+    const mainHeader = document.createElement('div');
+    mainHeader.classList.add('main__header');
+
+    const projectName = document.createElement('h1');
+    projectName.classList.add('project-name');
+    projectName.textContent = e;
+
     const btnAddToDoMain = document.createElement('button');
     btnAddToDoMain.classList.add('btn-add-todo');
-    btnAddToDoMain.textContent = 'add to do';
+    btnAddToDoMain.textContent = '+';
 
-    main.appendChild(btnAddToDoMain);
+    mainHeader.appendChild(projectName);
+    mainHeader.appendChild(btnAddToDoMain);
+    main.appendChild(mainHeader);
 
     btnAddToDoMain.addEventListener('click', function (e) {
       overlay.classList.remove('hidden');
@@ -330,11 +324,14 @@ const dom = (() => {
   }
 
   function toggleModal(e) {
-    if (e.target?.classList.value === 'add-project' || e === 'add-project') {
+    if (
+      e.currentTarget?.classList.contains('add-project') ||
+      e === 'add-project'
+    ) {
       newProjectForm.classList.toggle('hidden');
       newToDoForm.classList.add('hidden');
     }
-    if (e.target?.classList.value === 'btn-add-todo' || e === 'btn-add-todo') {
+    if (e.currentTarget?.classList.contains('btn-add-todo') || e === '+') {
       newToDoForm.classList.toggle('hidden');
       newProjectForm.classList.add('hidden');
     }

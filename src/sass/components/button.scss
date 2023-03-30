@@ -23,7 +23,12 @@ svg {
     background-repeat: no-repeat;
     height: 20px;
     width: 20px;
-    // display: inline-block;
+  }
+  &-delete {
+    background-image: url('../img/trash-can-outline.svg');
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
   }
 }
 .btn-complete {
@@ -42,7 +47,6 @@ svg {
   width: 25px;
   border-radius: 50%;
   border: 2px solid var(--light-text);
-  // padding: 5px;
   position: relative;
 }
 
@@ -50,15 +54,3 @@ svg {
   background-image: url('../img/check\ .svg');
   background-repeat: no-repeat;
 }
-
-// .btn-complete-container[priority='high'] {
-//   border-color: red;
-// }
-
-// .btn-complete-container[priority='medium'] {
-//   border-color: yellow;
-// }
-
-// .btn-complete-container[priority='low'] {
-//   border-color: greenyellow;
-// }

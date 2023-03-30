@@ -148,7 +148,9 @@ function editProject(e) {
 }
 
 function deleteProject(e) {
-  localStorage.removeItem(e.currentTarget.parentNode.firstChild.textContent);
+  localStorage.removeItem(
+    e.currentTarget.parentNode.parentNode.firstChild.textContent
+  );
 }
 
 export {

@@ -124,7 +124,6 @@ const dom = (() => {
           document.querySelector('.btn-clear-form')
         );
         console.log(e);
-        // printProject(e.target.form['title-project'].value);
 
         overlay.classList.add('hidden');
         newProjectForm.classList.add('hidden');
@@ -247,7 +246,6 @@ const dom = (() => {
 
     const btnDelete = document.createElement('button');
     btnDelete.classList.add('btn-delete');
-    btnDelete.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 3 16 18"><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" /></svg>`;
 
     btnDelete.addEventListener('click', deleteToDoItem);
 
@@ -370,6 +368,7 @@ const dom = (() => {
       .map(x => x.toLowerCase())
       .sort()) {
       const projectBtnDiv = document.createElement('div');
+      projectBtnDiv.classList.add('project-container');
 
       const projectBtn = document.createElement('button');
       projectBtn.classList.add('sidebar__btn');
@@ -386,9 +385,11 @@ const dom = (() => {
         printSidebarLink(e.currentTarget.textContent);
       });
 
+      const projectBtnContainer = document.createElement('div');
+      projectBtnContainer.classList.add('project-container-btns');
+
       const deleteBtn = document.createElement('button');
-      deleteBtn.classList.add('btn-delete-project');
-      deleteBtn.textContent = 'delete';
+      deleteBtn.classList.add('btn-delete');
 
       deleteBtn.addEventListener('click', function (e) {
         deleteProject(e);
@@ -401,8 +402,7 @@ const dom = (() => {
       });
 
       const editBtn = document.createElement('button');
-      editBtn.classList.add('btn-edit-project');
-      editBtn.textContent = 'Edit';
+      editBtn.classList.add('btn-edit');
 
       editBtn.addEventListener('click', function (e) {
         newProjectFormButtonContainer.append(printEditButtonProjectForm());
@@ -419,9 +419,10 @@ const dom = (() => {
         title.value = e.currentTarget.parentNode.firstChild.textContent;
       });
 
+      projectBtnContainer.appendChild(editBtn);
+      projectBtnContainer.appendChild(deleteBtn);
       projectBtnDiv.appendChild(projectBtn);
-      projectBtnDiv.appendChild(editBtn);
-      projectBtnDiv.appendChild(deleteBtn);
+      projectBtnDiv.appendChild(projectBtnContainer);
 
       sidebarProjectSection.appendChild(projectBtnDiv);
     }

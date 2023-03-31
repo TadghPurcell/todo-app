@@ -31,30 +31,15 @@ svg {
     width: 20px;
   }
   &-complete {
-    height: 15px;
-    width: 15px;
-    background-color: inherit;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    height: 20px;
+    width: 20px;
+    &[complete='false'] {
+      background-image: url('../img/circleOutline.svg');
+      background-repeat: no-repeat;
+    }
     &[complete='true'] {
-      background-image: url('../img/check\ .svg');
+      background-image: url('../img/checkCircleOutline.svg');
       background-repeat: no-repeat;
     }
   }
 }
-
-.btn-complete-container {
-  height: 25px;
-  width: 25px;
-  border-radius: 50%;
-  border: 2px solid var(--light-text);
-  position: relative;
-}
-
-// .btn-complete[complete='true'] {
-//   background-image: url('../img/check\ .svg');
-//   background-repeat: no-repeat;
-// }

@@ -1,3 +1,4 @@
+import { el } from 'date-fns/locale';
 import dom from './dom';
 let toDoItems = [];
 let currentItem = [];
@@ -66,9 +67,10 @@ function editCompleteStatus(e) {
       );
     }
   }
-
-  dom.main.innerHTML = '';
-  dom.printSidebarLink(document.querySelector('.active').textContent);
+  if (document.querySelector('.active').textContent === 'complete') {
+    dom.main.innerHTML = '';
+    dom.printSidebarLink(document.querySelector('.active').textContent);
+  }
 
   return getToDoItems();
 }

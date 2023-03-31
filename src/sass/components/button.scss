@@ -30,16 +30,20 @@ svg {
     height: 20px;
     width: 20px;
   }
-}
-.btn-complete {
-  height: 15px;
-  width: 15px;
-  background-color: inherit;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  &-complete {
+    height: 15px;
+    width: 15px;
+    background-color: inherit;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    &[complete='true'] {
+      background-image: url('../img/check\ .svg');
+      background-repeat: no-repeat;
+    }
+  }
 }
 
 .btn-complete-container {
@@ -50,7 +54,7 @@ svg {
   position: relative;
 }
 
-.btn-complete[complete='true'] {
-  background-image: url('../img/check\ .svg');
-  background-repeat: no-repeat;
-}
+// .btn-complete[complete='true'] {
+//   background-image: url('../img/check\ .svg');
+//   background-repeat: no-repeat;
+// }

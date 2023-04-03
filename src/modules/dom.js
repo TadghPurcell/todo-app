@@ -204,16 +204,10 @@ const dom = (() => {
     priority.classList.add('priority');
     priority.textContent = `${item.priority || ''}`;
 
-    const btnCompleteContainer = document.createElement('div');
-    btnCompleteContainer.classList.add('btn-complete-container');
-    btnCompleteContainer.setAttribute('priority', item.priority);
-
     const btnComplete = document.createElement('button');
     btnComplete.classList.add('btn-complete');
     btnComplete.setAttribute('complete', `${item.complete ? 'true' : 'false'}`);
     btnComplete.addEventListener('click', editCompleteStatus);
-
-    btnCompleteContainer.appendChild(btnComplete);
 
     const btnEdit = document.createElement('button');
     btnEdit.classList.add('btn-edit');
@@ -252,7 +246,7 @@ const dom = (() => {
     lastNode.textContent = item.project;
     lastNode.classList.add('hidden');
 
-    toDoItem.appendChild(btnCompleteContainer);
+    toDoItem.appendChild(btnComplete);
     toDoItem.appendChild(title);
     toDoItem.appendChild(desc);
     toDoItem.appendChild(dueDate);

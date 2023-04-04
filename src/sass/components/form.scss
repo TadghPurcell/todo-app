@@ -1,19 +1,27 @@
 button,
-input {
+input,
+textarea {
   font-family: inherit;
   padding: 0;
   margin: 0;
   box-sizing: inherit;
   font-size: inherit;
 }
-input {
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+input,
+textarea {
   margin: 1px;
   border: 1px solid #b2b2b2;
-  padding: 1rem;
-  // border-radius: 10px;
 }
 
-input:focus {
+input:focus,
+textarea:focus,
+select:focus {
   border: 1px solid var(--hover-link);
 }
 
@@ -29,7 +37,7 @@ form {
   padding: 50px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
   justify-content: center;
   gap: 16px;
   border-radius: 10px;
@@ -38,6 +46,7 @@ form {
 form > * {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
 .overlay {
@@ -53,7 +62,6 @@ form > * {
 
 .new-todo-form__buttons,
 .new-project-form__buttons {
-  width: 125%;
   flex-direction: row-reverse;
   gap: 8px;
   justify-content: flex-start;
@@ -67,9 +75,7 @@ form > * {
 
 select {
   text-transform: capitalize;
-  box-shadow: var(--box-shadow);
   font-size: 1.5rem;
-  padding: 1rem 6rem 1rem 1.5rem;
   background-color: #4d5061;
   color: #eee;
   // appearance: none;
@@ -105,11 +111,11 @@ select {
   border-left: var(--size) solid transparent;
   border-right: var(--size) solid transparent;
   border-bottom: var(--size) solid #eee;
-  top: 40%;
+  top: 35%;
 }
 .custom-arrow::after {
   border-left: var(--size) solid transparent;
   border-right: var(--size) solid transparent;
   border-top: var(--size) solid #eee;
-  top: 60%;
+  top: 65%;
 }
